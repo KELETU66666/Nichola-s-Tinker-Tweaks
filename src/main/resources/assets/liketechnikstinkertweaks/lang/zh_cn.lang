@@ -1,6 +1,16 @@
 tooltip.level=等级
 tooltip.xp=经验
 
+mininglevel.stone=石头
+mininglevel.copper=铜
+mininglevel.iron=铁
+mininglevel.tin=锡
+mininglevel.redstone=红石
+mininglevel.obsidian=黑曜石
+mininglevel.ardite=阿迪特
+mininglevel.cobalt=钴
+mininglevel.manyullyn=玛玉灵
+
 tooltip.level.0=纯新
 tooltip.level.1=笨拙
 tooltip.level.2=称手

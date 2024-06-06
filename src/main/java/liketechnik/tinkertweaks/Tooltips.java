@@ -20,7 +20,7 @@ public final class Tooltips {
 
   public static void addTooltips(ItemStack itemStack, List<String> tooltips) {
     NBTTagCompound tag = TinkerUtil.getModifierTag(itemStack, LiketechniksTinkerTweaks.modToolLeveling.getModifierIdentifier());
-    if(!tag.hasNoTags()) {
+    if(!tag.isEmpty()) {
       ToolLevelNBT data = new ToolLevelNBT(tag);
       if(Config.canLevelUp(data.level)) {
         tooltips.add(1, getXpToolTip(data.xp, LiketechniksTinkerTweaks.modToolLeveling.getXpForLevelup(data.level, itemStack)));

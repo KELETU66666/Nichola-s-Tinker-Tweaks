@@ -33,7 +33,6 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.*;
 
 public class ModToolLeveling extends ProjectileModifierTrait {

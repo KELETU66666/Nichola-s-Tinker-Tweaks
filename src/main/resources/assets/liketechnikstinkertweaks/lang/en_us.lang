@@ -1,6 +1,16 @@
 tooltip.level=Level
 tooltip.xp=XP
 
+mininglevel.stone=Stone
+mininglevel.copper=Copper
+mininglevel.iron=Iron
+mininglevel.tin=Tin
+mininglevel.redstone=Redstone
+mininglevel.obsidian=Obsidian
+mininglevel.ardite=Ardite
+mininglevel.cobalt=Cobalt
+mininglevel.manyullyn=Manyullyn
+
 tooltip.level.0=Like new
 tooltip.level.1=Clumsy
 tooltip.level.2=Comfortable
