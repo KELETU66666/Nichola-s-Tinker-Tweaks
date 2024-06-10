@@ -101,6 +101,10 @@ public class ConfigFile extends AbstractConfigFile {
     Messages messages = new Messages();
     @Setting
     Debugs debugs = new Debugs();
+    @Setting
+    Heads heads = new Heads();
+    @Setting
+    Items items = new Items();
 
     public ConfigFile() {
     }
@@ -244,6 +248,12 @@ public class ConfigFile extends AbstractConfigFile {
         @Setting(comment = "Change mining speed of all tool materials (in percent)")
         public int miningSpeedPercentage = 100;
 
+        @Setting(comment = "Does mobhead upgrade requires modifier")
+        public boolean mobHeadRequiresModifier = false;
+
+        @Setting(comment = "levelingPickaxeBoost")
+        public boolean levelingPickaxeBoost = true;
+
         @Setting(comment = "Makes all non-TConstruct tools mine nothing")
         public boolean nerfVanillaTools = true;
         @Setting(comment = "Makes all non-TConstruct hoes to not be able to hoe ground. Use the Mattock.")
@@ -327,6 +337,23 @@ public class ConfigFile extends AbstractConfigFile {
 
         @Setting(comment = "Message to play in chat when a tool's stats increase (only applicible if the BonusStats module is enabled; empty by default.):")
         public String genericStatsUpMessage = "";
+    }
+
+    @ConfigSerializable
+    static class Heads {
+        @Setting(comment = "Base percentage for a head to drop")
+        public int baseHeadDropChance = 5;
+
+        @Setting(comment = "Percentage added to base percentage per level of Beheading modifier")
+        public int beheadingHeadDropChance = 2;
+
+    }
+
+    @ConfigSerializable
+    static class Items {
+        @Setting(comment = "Can clay bucket fill hot fluid")
+        public boolean bucketHotFluids = true;
+
     }
 
     @ConfigSerializable

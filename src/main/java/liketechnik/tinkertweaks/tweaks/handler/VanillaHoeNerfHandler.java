@@ -1,26 +1,24 @@
-package liketechnik.tinkertweaks.handler;
+package liketechnik.tinkertweaks.tweaks.handler;
 
 import liketechnik.tinkertweaks.LiketechniksTinkerTweaks;
-import liketechnik.tinkertweaks.ModToolLeveling;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class VanillaBowNerfHandler {
+public class VanillaHoeNerfHandler {
     @SubscribeEvent
-    public void onArrowNock(ArrowNockEvent event)
+    public void onHoeBlock(UseHoeEvent event)
     {
-        if(event.getEntityPlayer() == null)
+        // don't modify hoeing without tool (from machines, if they even send an event.)
+        if(event.getCurrent() == ItemStack.EMPTY)
             return;
 
-        if(event.getResult() == null)
-            return;
-
-        if(isUselessBow(event.getBow().getItem()))
+        if(isUselessHoe(event.getCurrent().getItem()))
             event.setCanceled(true);
     }
 
@@ -29,13 +27,13 @@ public class VanillaBowNerfHandler {
         if (event.getEntityPlayer() == null)
             return;
 
-        if(isUselessBow(event.getItemStack().getItem())) {
-            event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessBow1"));
+        if(isUselessHoe(event.getItemStack().getItem())) {
+            event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessHoe1"));
             event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessTool2"));
         }
     }
 
-    public static boolean isUselessBow(Item item)
+    public static boolean isUselessHoe(Item item)
     {
         if(item == null)
             return false;
@@ -43,7 +41,7 @@ public class VanillaBowNerfHandler {
         if(LiketechniksTinkerTweaks.toolWhitelist.contains(item))
             return false;
 
-        if(item instanceof ItemBow)
+        if(item instanceof ItemHoe)
             return true;
 
         return false;

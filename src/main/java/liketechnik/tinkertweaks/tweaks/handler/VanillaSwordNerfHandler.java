@@ -1,4 +1,4 @@
-package liketechnik.tinkertweaks.handler;
+package liketechnik.tinkertweaks.tweaks.handler;
 
 import liketechnik.tinkertweaks.LiketechniksTinkerTweaks;
 import net.minecraft.client.resources.I18n;

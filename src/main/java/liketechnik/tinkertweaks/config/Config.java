@@ -39,19 +39,43 @@ public class Config extends AbstractConfig {
         return INSTANCE.configFile.general.miningSpeedPercentage;
     }
 
+    public static int beheadingHeadDropChance() {
+        return INSTANCE.configFile.heads.beheadingHeadDropChance;
+    }
+
+    public static boolean bucketHotFluids() {
+        return INSTANCE.configFile.items.bucketHotFluids;
+    }
+
+    public static int baseHeadDropChance() {
+        return INSTANCE.configFile.heads.baseHeadDropChance;
+    }
+
     public static boolean excludedToolsIsWhitelist() {
         return INSTANCE.configFile.general.excludedToolsIsWhitelist;
     }
+
+    public static boolean mobHeadRequiresModifier() {
+        return INSTANCE.configFile.general.mobHeadRequiresModifier;
+    }
+
+    public static boolean levelingPickaxeBoost() {
+        return INSTANCE.configFile.general.levelingPickaxeBoost;
+    }
+
     public static boolean nerfVanillaTools() {
         return INSTANCE.configFile.general.nerfVanillaTools;
     }
+
     public static boolean nerfVanillaHoes() {
         return INSTANCE.configFile.general.nerfVanillaHoes;
     }
+
     public static boolean nerfVanillaBow() {
         return INSTANCE.configFile.general.nerfVanillaBows;
     }
-    public static boolean nerfVanillaVanillaSword() {
+
+    public static boolean nerfVanillaSword() {
         return INSTANCE.configFile.general.nerfVanillaSwords;
     }
 

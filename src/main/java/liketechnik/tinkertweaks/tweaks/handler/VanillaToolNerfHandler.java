@@ -1,26 +1,28 @@
-package liketechnik.tinkertweaks.handler;
+package liketechnik.tinkertweaks.tweaks.handler;
 
 import liketechnik.tinkertweaks.LiketechniksTinkerTweaks;
-import liketechnik.tinkertweaks.ModToolLeveling;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class VanillaHoeNerfHandler {
+public class VanillaToolNerfHandler {
     @SubscribeEvent
-    public void onHoeBlock(UseHoeEvent event)
+    public void breakSpeed(PlayerEvent.BreakSpeed event)
     {
-        // don't modify hoeing without tool (from machines, if they even send an event.)
-        if(event.getCurrent() == ItemStack.EMPTY)
+        if(event.getEntityPlayer() == null)
             return;
 
-        if(isUselessHoe(event.getCurrent().getItem()))
-            event.setCanceled(true);
+        ItemStack itemStack = event.getEntityPlayer().getHeldItemMainhand();
+        if(itemStack == ItemStack.EMPTY)
+            return;
+
+        if(isUselessTool(itemStack.getItem()))
+            event.setNewSpeed(0);
     }
 
     @SubscribeEvent
@@ -28,13 +30,13 @@ public class VanillaHoeNerfHandler {
         if (event.getEntityPlayer() == null)
             return;
 
-        if(isUselessHoe(event.getItemStack().getItem())) {
-            event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessHoe1"));
+        if(isUselessTool(event.getItemStack().getItem())) {
+            event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessTool1"));
             event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessTool2"));
         }
     }
 
-    public static boolean isUselessHoe(Item item)
+    public static boolean isUselessTool(Item item)
     {
         if(item == null)
             return false;
@@ -42,7 +44,7 @@ public class VanillaHoeNerfHandler {
         if(LiketechniksTinkerTweaks.toolWhitelist.contains(item))
             return false;
 
-        if(item instanceof ItemHoe)
+        if(item instanceof ItemTool)
             return true;
 
         return false;

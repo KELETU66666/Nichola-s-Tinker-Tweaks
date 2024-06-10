@@ -1,8 +1,8 @@
 package liketechnik.tinkertweaks.mininglevel;
 
 import liketechnik.tinkertweaks.config.Config;
-import liketechnik.tinkertweaks.handler.VanillaHoeNerfHandler;
-import liketechnik.tinkertweaks.handler.VanillaToolNerfHandler;
+import liketechnik.tinkertweaks.tweaks.handler.VanillaHoeNerfHandler;
+import liketechnik.tinkertweaks.tweaks.handler.VanillaToolNerfHandler;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
