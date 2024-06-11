@@ -1,25 +1,24 @@
 package liketechnik.tinkertweaks.mobhead.renderers;
 
 import liketechnik.tinkertweaks.LiketechniksTinkerTweaks;
-import liketechnik.tinkertweaks.mobhead.items.IguanaSkull;
 import liketechnik.tinkertweaks.mobhead.models.ModelBucketHelmet;
 import liketechnik.tinkertweaks.mobhead.models.ModelEnderManHead;
 import liketechnik.tinkertweaks.mobhead.models.ModelHeadwear;
+import liketechnik.tinkertweaks.mobhead.tilenetities.IguanaSkullTileEntity;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelSkeletonHead;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 
 @SideOnly(Side.CLIENT)
-public class IguanaTileEntitySkullRenderer extends TileEntitySpecialRenderer {
+public class IguanaTileEntitySkullRenderer extends TileEntitySkullRenderer {
     public static IguanaTileEntitySkullRenderer renderer = new IguanaTileEntitySkullRenderer();
 
     // Skull stuff
@@ -52,42 +51,134 @@ public class IguanaTileEntitySkullRenderer extends TileEntitySpecialRenderer {
 
 
     @Override
-    public void render(TileEntity entity, double x, double y, double z, float f, int f1, float f2) {
-        if(!(entity instanceof TileEntitySkull))
+    public void render(TileEntitySkull te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        if(!(te instanceof IguanaSkullTileEntity))
             return;
-        TileEntitySkull entitySkull = (TileEntitySkull)entity;
 
-        float r = (entitySkull.getSkullRotation() * 360) / 16.0F;
-        renderSkull((float)x, (float)y, (float)z, r, entitySkull.getBlockMetadata(), entitySkull.getSkullType());
+        EnumFacing enumfacing = EnumFacing.byIndex(te.getBlockMetadata() & 7);
+        //float r = (te.getSkullRotation() * 360) / 16.0F;
+        //renderSkull((float)x, (float)y, (float)z, r, te.getBlockMetadata(), te.getSkullType());
+        float f = te.getAnimationProgress(partialTicks);
+        this.renderSkull((float)x, (float)y, (float)z, enumfacing, (float)(te.getSkullRotation() * 360) / 16.0F, te.getSkullType(), destroyStage, f);
     }
 
-    public void renderSkull(float x, float y, float z, float r, int sidePlacement, int meta)
+    //public void renderSkull(float x, float y, float z, float r, int sidePlacement, int meta)
+    //{
+    //    if(meta == 0)
+    //        renderSkull(x,y,z, r, sidePlacement, modelEnderManHead, textures[0]);
+    //    else if(meta == 1)
+    //        renderSkull(x,y,z, r, sidePlacement, modelZombie, textures[1]);
+    //    else {
+    //        // draw blaze if head doesn't exist (anymore)
+    //        if(!IguanaSkull.isHeadRegistered(meta))
+    //            meta = 2;
+    //        renderSkull(x, y, z, r, sidePlacement, modelSkull, textures[meta]);
+    //    }
+    //}
+//
+    //public void renderBucket(float x, float y, float z, float r, int sidePlacement, int meta)
+    //{
+    //    if(meta == 0)
+    //        renderSkull(x,y,z, r, sidePlacement, modelBucketHelmet, textureBucketHelmet);
+    //    else if(meta == 1)
+    //        renderSkull(x,y,z, r, sidePlacement, modelBucketHelmet, textureClayBucketHelmet);
+    //    else if(meta == 2)
+    //        renderSkull(x,y,z, r, sidePlacement, modelEnderManJaw, textures[0]);
+    //    else if(meta == 3)
+    //        renderSkull(x,y,z, r, sidePlacement, modelSkull, textures[0]);
+    //}
+
+    public void renderSkull(float x, float y, float z, EnumFacing facing, float rotationIn, int skullType, int destroyStage, float animateTicks)
     {
-        if(meta == 0)
-            renderSkull(x,y,z, r, sidePlacement, modelEnderManHead, textures[0]);
-        else if(meta == 1)
-            renderSkull(x,y,z, r, sidePlacement, modelZombie, textures[1]);
-        else {
-            // draw blaze if head doesn't exist (anymore)
-            if(!IguanaSkull.isHeadRegistered(meta))
-                meta = 2;
-            renderSkull(x, y, z, r, sidePlacement, modelSkull, textures[meta]);
+        ModelBase modelbase = this.modelSkull;
+
+        if (destroyStage >= 0)
+        {
+            this.bindTexture(DESTROY_STAGES[destroyStage]);
+            GlStateManager.matrixMode(5890);
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(4.0F, 2.0F, 1.0F);
+            GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
+            GlStateManager.matrixMode(5888);
+        }
+        else
+        {
+            switch (skullType)
+            {
+                case 0:
+                default:
+                    this.bindTexture(textures[0]);
+                    modelbase = modelEnderManHead;
+                    break;
+                case 1:
+                    this.bindTexture(textures[1]);
+                    modelbase = modelZombie;
+                    break;
+                case 2:
+                    this.bindTexture(textures[2]);
+                    break;
+                case 3:
+                    this.bindTexture(textures[3]);
+                    break;
+            }
+        }
+
+        GlStateManager.pushMatrix();
+        GlStateManager.disableCull();
+
+        if (facing == EnumFacing.UP)
+        {
+            GlStateManager.translate(x + 0.5F, y, z + 0.5F);
+        }
+        else
+        {
+            switch (facing)
+            {
+                case NORTH:
+                    GlStateManager.translate(x + 0.5F, y + 0.25F, z + 0.74F);
+                    break;
+                case SOUTH:
+                    GlStateManager.translate(x + 0.5F, y + 0.25F, z + 0.26F);
+                    rotationIn = 180.0F;
+                    break;
+                case WEST:
+                    GlStateManager.translate(x + 0.74F, y + 0.25F, z + 0.5F);
+                    rotationIn = 270.0F;
+                    break;
+                case EAST:
+                default:
+                    GlStateManager.translate(x + 0.26F, y + 0.25F, z + 0.5F);
+                    rotationIn = 90.0F;
+            }
+        }
+
+        float f = 0.0625F;
+        GlStateManager.enableRescaleNormal();
+        GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+        GlStateManager.enableAlpha();
+
+        if (skullType == 3)
+        {
+            GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
+        }
+
+        modelbase.render(null, animateTicks, 0.0F, 0.0F, rotationIn, 0.0F, 0.0625F);
+        if(modelbase == modelEnderManHead)
+        {
+            this.bindTexture(enderManEyes);
+            modelbase.render(null, 0.0f, 0.0f, 0.0f, rotationIn, 0.0f, 0.0625F);
+        }
+        GlStateManager.popMatrix();
+
+        if (destroyStage >= 0)
+        {
+            GlStateManager.matrixMode(5890);
+            GlStateManager.popMatrix();
+            GlStateManager.matrixMode(5888);
         }
     }
 
-    public void renderBucket(float x, float y, float z, float r, int sidePlacement, int meta)
-    {
-        if(meta == 0)
-            renderSkull(x,y,z, r, sidePlacement, modelBucketHelmet, textureBucketHelmet);
-        else if(meta == 1)
-            renderSkull(x,y,z, r, sidePlacement, modelBucketHelmet, textureClayBucketHelmet);
-        else if(meta == 2)
-            renderSkull(x,y,z, r, sidePlacement, modelEnderManJaw, textures[0]);
-        else if(meta == 3)
-            renderSkull(x,y,z, r, sidePlacement, modelSkull, textures[0]);
-    }
-
-    public void renderSkull(float x, float y, float z, float r, int sidePlacement, ModelBase model, ResourceLocation texture)
+    /*public void renderSkull(float x, float y, float z, EnumFacing sidePlacement, float r, int destroyStage, ModelBase model, ResourceLocation texture)
     {
         // chose texture
         this.bindTexture(texture);
@@ -97,10 +188,18 @@ public class IguanaTileEntitySkullRenderer extends TileEntitySpecialRenderer {
         //this.bindTexture(new ResourceLocation("textures/entity/enderman/enderman_eyes.png"));
 
         // begin rendering
-        GL11.glPushMatrix();
+        GlStateManager.pushMatrix();
         GL11.glDisable(GL11.GL_CULL_FACE);
 
-
+        if (destroyStage >= 0)
+        {
+            this.bindTexture(DESTROY_STAGES[destroyStage]);
+            GlStateManager.matrixMode(5890);
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(4.0F, 2.0F, 1.0F);
+            GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
+            GlStateManager.matrixMode(5888);
+        }
         if (sidePlacement != 1)
         {
             switch (sidePlacement)
@@ -142,6 +241,6 @@ public class IguanaTileEntitySkullRenderer extends TileEntitySpecialRenderer {
             model.render(null, 0.0f, 0.0f, 0.0f, r, 0.0f, f4);
         }
 
-        GL11.glPopMatrix();
-    }
+        GlStateManager.popMatrix();
+    }*/
 }

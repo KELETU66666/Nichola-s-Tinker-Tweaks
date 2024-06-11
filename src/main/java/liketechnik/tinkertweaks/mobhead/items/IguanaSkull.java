@@ -6,8 +6,10 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
@@ -26,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +37,8 @@ public class IguanaSkull extends ItemSkull {
     public static final int META_PIGZOMBIE = 1;
     public static final int META_BLAZE     = 2;
     public static final int META_BLIZZ     = 3;
+
+    private static final ModelBiped EMPTY_MODEL = new ModelBiped();
 
     // an entry for a head
     public static class HeadEntry {
@@ -51,6 +56,7 @@ public class IguanaSkull extends ItemSkull {
         addHead(0, "enderman", "skull_enderman");
         addHead(1, "pigman", "skull_pigman");
         addHead(2, "blaze", "skull_blaze");
+        EMPTY_MODEL.setVisible(false);
     }
 
     public static void addHead(int meta, String name, String icon) {
@@ -59,6 +65,12 @@ public class IguanaSkull extends ItemSkull {
 
     public static boolean isHeadRegistered(int meta) { return headEntries.containsKey(meta); }
 
+    @SideOnly(Side.CLIENT)
+    @Nonnull
+    @Override
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+        return (ModelBiped) EMPTY_MODEL;
+    }
 
 	public IguanaSkull() {
 		super();

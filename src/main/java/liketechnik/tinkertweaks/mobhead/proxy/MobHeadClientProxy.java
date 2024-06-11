@@ -1,20 +1,28 @@
 package liketechnik.tinkertweaks.mobhead.proxy;
 
-import liketechnik.tinkertweaks.mobhead.tilenetities.IguanaSkullTileEntity;
+import liketechnik.tinkertweaks.mobhead.IguanaMobHeads;
 import liketechnik.tinkertweaks.mobhead.renderers.IguanaTileEntitySkullRenderer;
-import liketechnik.tinkertweaks.mobhead.handlers.RenderPlayerHandler;
-import net.minecraftforge.common.MinecraftForge;
+import liketechnik.tinkertweaks.mobhead.renderers.TileEntityItemStackSkullRenderer;
+import liketechnik.tinkertweaks.mobhead.tilenetities.IguanaSkullTileEntity;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+
+import javax.annotation.Nonnull;
 
 public class MobHeadClientProxy extends MobHeadCommonProxy {
     @Override
     public void initialize() {
-        ClientRegistry.bindTileEntitySpecialRenderer(IguanaSkullTileEntity.class, IguanaTileEntitySkullRenderer.renderer);
+        ClientRegistry.bindTileEntitySpecialRenderer(IguanaSkullTileEntity.class, new IguanaTileEntitySkullRenderer());
+        IguanaMobHeads.skullItem.setTileEntityItemStackRenderer(new TileEntityItemStackSkullRenderer());
     }
 
     public void postInit() {
         // register the renderer
-        MinecraftForge.EVENT_BUS.register(new RenderPlayerHandler());
 
         //if(Loader.isModLoaded("NotEnoughItems")) {
         //    codechicken.nei.api.API.hideItem(new ItemStack(IguanaMobHeads.wearables, 1, 0));
@@ -24,5 +32,24 @@ public class MobHeadClientProxy extends MobHeadCommonProxy {
 //
         //    codechicken.nei.api.API.hideItem(new ItemStack(Item.getItemFromBlock(IguanaMobHeads.skullBlock)));
         //}
+    }
+
+    @Override
+    public void registerModels() {
+       // registerItemModel(IguanaMobHeads.skullItem);
+    }
+
+    private void registerItemModel(Item item) {
+        if(item != null) {
+            final ResourceLocation location = item.getRegistryName();
+            ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
+                @Nonnull
+                @Override
+                public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
+                    return new ModelResourceLocation(location, "inventory");
+                }
+            });
+            ModelLoader.registerItemVariants(item, location);
+        }
     }
 }

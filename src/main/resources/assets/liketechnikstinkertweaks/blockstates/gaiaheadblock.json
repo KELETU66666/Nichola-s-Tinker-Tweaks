@@ -1,0 +1,12 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "liketechnikstinkertweaks:dummy",
+    "textures": {
+      "particle": "minecraft:blocks/soul_sand"
+    }
+  },
+  "variants": {
+    "normal": [{}]
+  }
+}

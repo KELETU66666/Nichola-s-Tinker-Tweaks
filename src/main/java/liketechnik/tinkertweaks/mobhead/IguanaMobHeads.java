@@ -31,7 +31,6 @@ public class IguanaMobHeads {
 
     public static void preInit(FMLPreInitializationEvent event)
     {
-        proxy.initialize();
 
         if(ModSupportHelper.ThermalFoundation)
             integrateThermalExpansion();
@@ -46,6 +45,8 @@ public class IguanaMobHeads {
         // psssssst!
         wearables = new Wearable();
         ForgeRegistries.ITEMS.register(wearables);
+        proxy.registerModels();
+        proxy.initialize();
     }
 
     public static void postInit(FMLPostInitializationEvent event)

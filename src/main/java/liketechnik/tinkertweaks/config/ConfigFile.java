@@ -246,7 +246,7 @@ public class ConfigFile extends AbstractConfigFile {
         @Setting(comment = "Change durability of all tool materials (in percent)")
         public int durabilityPercentage = 80;
         @Setting(comment = "Change mining speed of all tool materials (in percent)")
-        public int miningSpeedPercentage = 100;
+        public int miningSpeedPercentage = 1;
 
         @Setting(comment = "Does mobhead upgrade requires modifier")
         public boolean mobHeadRequiresModifier = false;
