@@ -1,6 +1,7 @@
-[{
-    "modid": "liketechnikstinkertweaks",
-    "name": "Liketechnik's Tinker Tweaks",
+[
+  {
+    "modid": "keletutinkertweaks",
+    "name": "Keletu's Tinker Tweaks",
     "description": "A small mod that gives your tools XP and awards random modifiers applied to your tools on levelup",
     "version": "1.1.0",
     "mcversion": "1.12.2",
@@ -8,11 +9,13 @@
     "updateUrl": "",
     "authorList": [
       "boni",
-      "liketechnik"
+      "liketechnik",
+      "keletu"
     ],
     "credits": "boni, for creating Tinkers Tool Leveling, the base this mod was created on",
     "logoFile": "",
     "screenshots": [],
-    "parent":"",
+    "parent": "",
     "dependencies": []
-}]
+  }
+]
