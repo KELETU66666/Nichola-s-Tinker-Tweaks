@@ -6,10 +6,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Config extends AbstractConfig {
 
@@ -53,7 +50,15 @@ public class Config extends AbstractConfig {
     }
 
     public static boolean excludedToolsIsWhitelist() {
-        return INSTANCE.configFile.general.excludedToolsIsWhitelist;
+        return INSTANCE.configFile.nerf.excludedToolsIsWhitelist;
+    }
+
+    public static List<String> excludedTools() {
+        return INSTANCE.configFile.nerf.excludedTools;
+    }
+
+    public static List<String> excludedModTools() {
+        return INSTANCE.configFile.nerf.excludedModTools;
     }
 
     public static boolean mobHeadRequiresModifier() {
@@ -72,11 +77,14 @@ public class Config extends AbstractConfig {
         return INSTANCE.configFile.general.nerfVanillaHoes;
     }
 
-    public static boolean nerfVanillaBow() {
+    public static boolean nerfVanillaBows() {
         return INSTANCE.configFile.general.nerfVanillaBows;
     }
+    public static boolean removeFlintDrop() {
+        return INSTANCE.configFile.general.removeFlintDrop;
+    }
 
-    public static boolean nerfVanillaSword() {
+    public static boolean nerfVanillaSwords() {
         return INSTANCE.configFile.general.nerfVanillaSwords;
     }
     public static List<Integer> bonusModifier() {

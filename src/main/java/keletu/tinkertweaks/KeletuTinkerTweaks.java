@@ -14,6 +14,7 @@ import keletu.tinkertweaks.mininglevel.HarvestLevelTweaks;
 import keletu.tinkertweaks.mininglevel.TinkerMaterialTweaks;
 import keletu.tinkertweaks.mininglevel.VanillaToolTipHandler;
 import keletu.tinkertweaks.mobhead.IguanaMobHeads;
+import keletu.tinkertweaks.tweaks.handler.*;
 import keletu.tinkertweaks.util.HarvestLevels;
 import keletu.tinkertweaks.util.Log;
 import keletu.tinkertweaks.util.ModSupportHelper;
@@ -75,13 +76,13 @@ public class KeletuTinkerTweaks {
             // whitelist
             if (Config.excludedToolsIsWhitelist()) {
                 // on the whitelist?
-                //if (Config.excludedModTools().contains(mod) || Config.excludedTools().contains(identifier))
-                //    toolWhitelist.add(item);
+                if (Config.excludedModTools().contains(mod) || Config.excludedTools().contains(identifier.getPath()))
+                    toolWhitelist.add(item);
             }
             // blacklist
             else {
-                //if (!Config.excludedModTools().contains(mod) && !Config.excludedTools().contains(identifier))
-                //    toolWhitelist.add(item);
+                if (!Config.excludedModTools().contains(mod) && !Config.excludedTools().contains(identifier.getPath()))
+                    toolWhitelist.add(item);
             }
         }
     }
@@ -118,6 +119,8 @@ public class KeletuTinkerTweaks {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        flintTweaks();
+
         TinkerMaterialTweaks.modifyToolMaterials();
         HarvestLevelTweaks.modifyHarvestLevels();
         MinecraftForge.EVENT_BUS.register(new VanillaToolTipHandler());
@@ -127,10 +130,50 @@ public class KeletuTinkerTweaks {
         //if(Config.changeDiamondModifier)
         //  changeDurabilityModifiers();
 
+        // stonetorches
+        //if(Config.removeStoneTorchRecipe)
+        //{
+        //    Log.debug("Removing stone torch recipe");
+        //    RecipeRemover.removeAnyRecipe(new ItemStack(TinkerWorld.STONETORCH, 4));
+        //}
+
+        // because diamond pickaxe is hax
+        if(Config.nerfVanillaTools()) {
+            // init whitelist
+            findToolsFromConfig();
+
+            Log.info("Sticks and stones may break my bones, but your pickaxes and axes will break no blocks.");
+            MinecraftForge.EVENT_BUS.register(new VanillaToolNerfHandler());
+        }
+
+        // no hoes for you
+        if(Config.nerfVanillaHoes()) {
+            Log.debug("Vanilla hoe? More like vanilla go!");
+            MinecraftForge.EVENT_BUS.register(new VanillaHoeNerfHandler());
+        }
+
+        if(Config.nerfVanillaSwords()) {
+            Log.debug("Replacing swords with pasta");
+            MinecraftForge.EVENT_BUS.register(new VanillaSwordNerfHandler());
+        }
+
+        if(Config.nerfVanillaBows()) {
+            Log.debug("Sabotaging bows");
+            MinecraftForge.EVENT_BUS.register(new VanillaBowNerfHandler());
+        }
+
         MinecraftForge.EVENT_BUS.register(keletu.tinkertweaks.EventHandler.INSTANCE);
         MinecraftForge.EVENT_BUS.register(EntityXpHandler.INSTANCE);
         if (event.getSide().isServer()) {
             MinecraftForge.EVENT_BUS.register(new ConfigSync());
+        }
+    }
+
+    private void flintTweaks()
+    {
+        if(Config.removeFlintDrop()) {
+            Log.debug("Removing Flint drops from Gravel");
+            MinecraftForge.EVENT_BUS.register(new FlintHandler());
         }
     }
 

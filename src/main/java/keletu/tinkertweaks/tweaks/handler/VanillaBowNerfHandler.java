@@ -5,13 +5,14 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class VanillaBowNerfHandler {
-    @SubscribeEvent
-    public void onArrowNock(ArrowNockEvent event)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onArrowNock(PlayerInteractEvent.RightClickItem event)
     {
         if(event.getEntityPlayer() == null)
             return;
@@ -19,7 +20,7 @@ public class VanillaBowNerfHandler {
         if(event.getResult() == null)
             return;
 
-        if(isUselessBow(event.getBow().getItem()))
+        if(isUselessBow(event.getItemStack().getItem()))
             event.setCanceled(true);
     }
 

@@ -103,6 +103,8 @@ public class ConfigFile extends AbstractConfigFile {
     Heads heads = new Heads();
     @Setting
     Items items = new Items();
+    @Setting
+    Nerfs nerf = new Nerfs();
 
     public ConfigFile() {
     }
@@ -159,6 +161,7 @@ public class ConfigFile extends AbstractConfigFile {
                     setNeedsSaving();
                 });
 
+        nerfTools();
 
     }
 
@@ -260,8 +263,40 @@ public class ConfigFile extends AbstractConfigFile {
         public boolean nerfVanillaSwords = false;
         @Setting(comment = "Makes all non-TConstruct bows useless. You suddenly forgot how to use a bow.")
         public boolean nerfVanillaBows = false;
+        @Setting(comment = "Remove flints drop from gravel")
+        public boolean removeFlintDrop = true;
+    }
+
+    public void nerfTools(){
+        if(general.nerfVanillaTools)
+            nerf.excludedTools.addAll(nerf.tools);
+        if(general.nerfVanillaSwords)
+            nerf.excludedTools.addAll(nerf.swords);
+        if(general.nerfVanillaBows)
+            nerf.excludedTools.addAll(nerf.bows);
+        if(general.nerfVanillaHoes)
+            nerf.excludedTools.addAll(nerf.hoes);
+    }
+
+    /** Allowed tools for nerfed vanilla tools **/
+    @ConfigSerializable
+    static class Nerfs {
         @Setting(comment = "Change the type of the exclusion.\n'blacklist' means the listed tools are made unusable.\n'whitelist' means ALL tools except the listed ones are unusable.")
         public boolean excludedToolsIsWhitelist = false;
+
+        @Setting(comment = "Tools that are excluded if the option to nerf non-tinkers tools is enabled.")
+        public List<String> tools = Arrays.stream(defaultExcludedTools).collect(Collectors.toList());
+        @Setting(comment = "Swords that are excluded if the option to nerf non-tinkers swords is enabled.")
+        public List<String> swords = Arrays.stream(defaultExcludedSwords).collect(Collectors.toList());
+        @Setting(comment = "Bows that are excluded if the option to nerf non-tinkers bows is enabled.")
+        public List<String> bows = Arrays.stream(defaultExcludedBows).collect(Collectors.toList());
+        @Setting(comment = "Hoes that are excluded if the option to nerf non-tinkers hoes is enabled.")
+        public List<String> hoes =  Arrays.stream(defaultExcludedHoes).collect(Collectors.toList());
+
+        @Setting(comment = "test")
+        public List<String> excludedTools = new ArrayList<>();
+        @Setting(comment = "Here you can exclude entire mods by adding their mod-id (the first part of the string).")
+        public List<String> excludedModTools = Arrays.stream(defaultAllowMod).collect(Collectors.toList());
     }
 
     @ConfigSerializable
