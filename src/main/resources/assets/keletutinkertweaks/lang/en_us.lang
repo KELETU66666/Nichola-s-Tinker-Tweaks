@@ -30,15 +30,25 @@ tooltip.level.42=boni
 tooltip.level.66=Jadedcat
 tooltip.level.99=Hacker
 
-modifier.zombiehead.name=Applicable up to: %s
-modifier.skeletonhead.name=Applicable up to: %s
-modifier.creeperhead.name=Applicable up to: %s
-modifier.witherskeletonhead.name=Applicable up to: %s
-modifier.netherstar.name=Applicable up to: %s
-modifier.zombiepigmanhead.name=Applicable up to: %s
-modifier.endermanhead.name=Applicable up to: %s
-modifier.blazehead.name=Applicable up to: %s
-modifier.blizzhead.name=Applicable up to: %s
+modifier.zombiehead.name=MiningLevel +1
+modifier.skeletonhead.name=MiningLevel +1
+modifier.creeperhead.name=MiningLevel +1
+modifier.witherskeletonhead.name=MiningLevel +1
+modifier.netherstar.name=MiningLevel +1
+modifier.zombiepigmanhead.name=MiningLevel +1
+modifier.endermanhead.name=MiningLevel +1
+modifier.blazehead.name=MiningLevel +1
+modifier.blizzhead.name=MiningLevel +1
+
+modifier.zombiehead.desc=Increase Pickaxe's Mining Level
+modifier.skeletonhead.desc=Increase Pickaxe's Mining Level
+modifier.creeperhead.desc=Increase Pickaxe's Mining Level
+modifier.witherskeletonhead.desc=Increase Pickaxe's Mining Level
+modifier.netherstar.desc=Increase Pickaxe's Mining Level
+modifier.zombiepigmanhead.desc=Increase Pickaxe's Mining Level
+modifier.endermanhead.desc=Increase Pickaxe's Mining Level
+modifier.blazehead.desc=Increase Pickaxe's Mining Level
+modifier.blizzhead.desc=Increase Pickaxe's Mining Level
 
 message.levelup.2=You begin to feel comfortable handling the %s
 message.levelup.3=You are now accustomed to the weight of the %s

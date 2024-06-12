@@ -15,6 +15,7 @@ import static slimeknights.tconstruct.tools.harvest.TinkerHarvestTools.*;
 
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @ConfigSerializable
 public class ConfigFile extends AbstractConfigFile {
@@ -25,6 +26,9 @@ public class ConfigFile extends AbstractConfigFile {
     private String[] allModifiers = new String[]{"aquadynamic", "hovering", "harvestwidth", "endspeed", "momentum", "superheat", "baconlicious", "soulbound", "reinforced", "sharp", "crumbling", "splintering", "crude2", "crude1",
             "stiff", "poisonous", "webbed", "harvestheight", "flammable", "coldblooded", "holy", "established", "luck", "unnatural", "smite", "glowing", "mending_moss", "haste", "jagged", "dense", "diamond", "shocking",
             "fiery", "heavy", "fractured", "enderfence", "hellish", "sharpness", "lightweight", "fins", "bane_of_arthopods", "splitting", "necrotic", "shulking", "insatiable", "prickly", "spiky", "petramor"};
+    private static int[] bonusModifierInt = new int[]{2, 3, 4, 5, 6};
+    private static int[] bonusEmptyModifierInt = new int[]{2, 4, 6};
+
     private static Map<Integer, String> defaultLevelTitles = new HashMap<Integer, String>() {{
         put(0, "Like new");
         put(1, "Clumsy");
@@ -276,6 +280,12 @@ public class ConfigFile extends AbstractConfigFile {
     static class Modifier {
         @Setting(comment = "Modifiers used when no more specific entry is present for the tool.")
         public List<String> modifiers = new ArrayList<>();
+
+        @Setting(comment = "Bonus your tool a random modifier")
+        public List<Integer> bonusModifier = Arrays.stream(bonusModifierInt).boxed().collect(Collectors.toList());
+
+        @Setting(comment = "Bonus your tool a modifier slot")
+        public List<Integer> bonusEmptyModifier = Arrays.stream(bonusEmptyModifierInt).boxed().collect(Collectors.toList());
 
         @Setting(comment = "Modifiers for each of the listed tools")
         public Map<Item, List<String>> modifiersForTool = new HashMap<>();

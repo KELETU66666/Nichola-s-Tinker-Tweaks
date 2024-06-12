@@ -79,6 +79,13 @@ public class Config extends AbstractConfig {
     public static boolean nerfVanillaSword() {
         return INSTANCE.configFile.general.nerfVanillaSwords;
     }
+    public static List<Integer> bonusModifier() {
+        return INSTANCE.configFile.modifier.bonusModifier;
+    }
+
+    public static List<Integer> bonusEmptyModifier() {
+        return INSTANCE.configFile.modifier.bonusEmptyModifier;
+    }
 
     public static int getStartingModifiers() {
         return INSTANCE.configFile.general.newToolMinModifiers;

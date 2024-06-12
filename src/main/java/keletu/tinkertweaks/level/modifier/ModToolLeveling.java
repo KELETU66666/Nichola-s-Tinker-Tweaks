@@ -175,7 +175,7 @@ public class ModToolLeveling extends ProjectileModifierTrait {
             List<IModifier> modifiers = Config.getModifiers(tool.getItem());
             int modifierIndex;
             boolean applied = false;
-            if (Config.addRandomModifierOnLevelup()) {
+            if (Config.addRandomModifierOnLevelup() && Config.bonusModifier().contains(data.level)) {
                 //System.out.println("Doing random modifier on levelup");
                 do {
                     if (Config.addModifierSlotOnLevelup()) {
@@ -184,9 +184,9 @@ public class ModToolLeveling extends ProjectileModifierTrait {
                         modifierIndex = random.nextInt(modifiers.size() + 1);
                     }
 
-                    if (modifierIndex == modifiers.size() || Config.addModifierSlotOnLevelup()) {
-                        data.bonusModifiers++;
-                    }
+                    //if (modifierIndex == modifiers.size() || Config.addModifierSlotOnLevelup()) {
+                    //    data.bonusModifiers++;
+                    //}
                     if (modifierIndex != modifiers.size() || Config.addModifierSlotOnLevelup()) {
                         modifier = modifiers.get(modifierIndex);
 
@@ -209,7 +209,8 @@ public class ModToolLeveling extends ProjectileModifierTrait {
                     }
                 } while (!applied && !modifiers.isEmpty());
             }
-            else if (Config.addModifierSlotOnLevelup()) {
+            //TODO
+            if (Config.bonusEmptyModifier().contains(data.level)) {
                 //System.out.println("Doing extra slot on levelup");
                 // All we need to do for extra free modifier:
                 data.bonusModifiers++;
