@@ -33,23 +33,4 @@ public class MobHeadClientProxy extends MobHeadCommonProxy {
         //    codechicken.nei.api.API.hideItem(new ItemStack(Item.getItemFromBlock(IguanaMobHeads.skullBlock)));
         //}
     }
-
-    @Override
-    public void registerModels() {
-       // registerItemModel(IguanaMobHeads.skullItem);
-    }
-
-    private void registerItemModel(Item item) {
-        if(item != null) {
-            final ResourceLocation location = item.getRegistryName();
-            ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
-                @Nonnull
-                @Override
-                public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
-                    return new ModelResourceLocation(location, "inventory");
-                }
-            });
-            ModelLoader.registerItemVariants(item, location);
-        }
-    }
 }
