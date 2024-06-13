@@ -269,18 +269,142 @@ public class ConfigFile extends AbstractConfigFile {
         public boolean disableStoneTools = true;
     }
 
-    public void nerfTools(){
-        if(general.nerfVanillaTools)
+    public static final String[] defaultAllowed = new String[]{
+            // wood:
+            "wood:tool_rod",
+            "wood:cross_guard",
+            "wood:binding",
+            "wood:sign_head",
+            "wood:bow_limb",
+            "wood:tough_binding",
+
+            /*"obsidian:tool_rod",
+            "obsidian:pick_head",
+            "obsidian:shovel_head",
+            "obsidian:axe_head",
+            "obsidian:wide_guard",
+            "obsidian:mediumguard",
+            "obsidian:cross_guard",
+            "obsidian:binding",
+            "obsidian:sign_head",
+            "obsidian:sharpening_kit",
+            "obsidian:sword_blade",
+            "obsidian:bow_limb",
+            "obsidian:tough_tool_rod",
+            "obsidian:tough_binding",
+            "obsidian:large_plate",
+            "obsidian:broad_axe_head",
+            "obsidian:scythe_head",
+            "obsidian:excavator_head",
+            "obsidian:hammer_head",
+            "obsidian:hand_guard",
+            "obsidian:arrow_head",
+            "obsidian:knife_blade",
+            "obsidian:shard",
+            "obsidian:pan_head",
+            "obsidian:kama_head",
+            "obsidian:large_sword_blade",*/
+
+            // flint:
+            "flint:pick_head",
+            "flint:shovel_head",
+            "flint:axe_head",
+            "flint:knife_blade",
+            "flint:arrow_head",
+
+            // bone
+            "bone:tool_rod",
+            "bone:shovel_head",
+            "bone:axe_head",
+            "bone:cross_guard",
+            "bone:knife_blade",
+            "bone:arrow_head",
+            "bone:bow_limb",
+            "bone:tough_binding",
+
+            // cactus
+            "cactus:tool_rod",
+            "cactus:binding",
+            "cactus:knife_blade",
+
+            // paper:
+            "paper:tool_rod",
+            "paper:binding",
+
+            // slime:
+            "slime:tool_rod",
+            "slime:sign_head",
+            "slime:binding",
+            "slime:bow_limb",
+            "slime:tough_binding",
+
+            // blueslime
+            "blueslime:tool_rod",
+            "blueslime:binding",
+            "blueslime:bow_limb",
+            "blueslime:tough_binding",
+
+            // magmaslime
+            "magmaslime:tool_rod",
+            "magmaslime:binding",
+            "magmaslime:bow_limb",
+            "magmaslime:tough_binding",
+
+            // netherrack
+            "netherrack:tool_rod",
+            "netherrack:pick_head",
+            "netherrack:shovel_head",
+            "netherrack:axe_head",
+            "netherrack:wide_guard",
+            "netherrack:mediumguard",
+            "netherrack:cross_guard",
+            "netherrack:binding",
+            "netherrack:sign_head",
+            "netherrack:tough_tool_rod",
+            "netherrack:large_plate",
+            "netherrack:broad_axe_head",
+            "netherrack:scythe_head",
+            "netherrack:excavator_head",
+            "netherrack:hand_guard",
+            "netherrack:arrow_head",
+            "netherrack:tough_binding",
+
+            // obsidian
+            "obsidian:tool_rod",
+            "obsidian:pick_head",
+            "obsidian:shovel_head",
+            "obsidian:axe_head",
+            "obsidian:wide_guard",
+            "obsidian:mediumguard",
+            "obsidian:cross_guard",
+            "obsidian:binding",
+            "obsidian:sign_head",
+            "obsidian:tough_tool_rod",
+            "obsidian:large_plate",
+            "obsidian:broad_axe_head",
+            "obsidian:scythe_head",
+            "obsidian:excavator_head",
+            "obsidian:hammer_head",
+            "obsidian:hand_guard",
+            "obsidian:arrow_head",
+            "obsidian:tough_binding",
+            "obsidian:knife_blade"
+    };
+
+    public void nerfTools() {
+        if (general.nerfVanillaTools)
             nerf.excludedTools.addAll(nerf.tools);
-        if(general.nerfVanillaSwords)
+        if (general.nerfVanillaSwords)
             nerf.excludedTools.addAll(nerf.swords);
-        if(general.nerfVanillaBows)
+        if (general.nerfVanillaBows)
             nerf.excludedTools.addAll(nerf.bows);
-        if(general.nerfVanillaHoes)
+        if (general.nerfVanillaHoes)
             nerf.excludedTools.addAll(nerf.hoes);
     }
 
-    /** Allowed tools for nerfed vanilla tools **/
+    /**
+     * Allowed tools for nerfed vanilla tools
+     **/
     @ConfigSerializable
     static class Nerfs {
         @Setting(comment = "Change the type of the exclusion.\n'blacklist' means the listed tools are made unusable.\n'whitelist' means ALL tools except the listed ones are unusable.")
@@ -293,12 +417,15 @@ public class ConfigFile extends AbstractConfigFile {
         @Setting(comment = "Bows that are excluded if the option to nerf non-tinkers bows is enabled.")
         public List<String> bows = Arrays.stream(defaultExcludedBows).collect(Collectors.toList());
         @Setting(comment = "Hoes that are excluded if the option to nerf non-tinkers hoes is enabled.")
-        public List<String> hoes =  Arrays.stream(defaultExcludedHoes).collect(Collectors.toList());
+        public List<String> hoes = Arrays.stream(defaultExcludedHoes).collect(Collectors.toList());
 
         @Setting(comment = "test")
         public List<String> excludedTools = new ArrayList<>();
         @Setting(comment = "Here you can exclude entire mods by adding their mod-id (the first part of the string).")
         public List<String> excludedModTools = Arrays.stream(defaultAllowMod).collect(Collectors.toList());
+
+        @Setting(comment = "This section is a negative of the above restricted section, and will be applied AFTER restricted parts.\nThat means only the parts listed here will be craftable, none of the other parts with this material.\nIf a Material does not show up here, it will be unmodified. Otherwise all other recipes for this material will be deleted.\nATTENTION: THIS DOES NOT ALLOW YOU TO ADD NEW RECIPES. ONLY EXISTING ONES WORK. This exists purely for convenience.materialnames and partnames are the same as restricted parts")
+        public List<String> input = Arrays.asList(defaultAllowed);
     }
 
     @ConfigSerializable

@@ -6,7 +6,7 @@ public final class ModSupportHelper {
     private ModSupportHelper() {} // non-instantiable
 
     public static final boolean tiCTooltips = Loader.isModLoaded("TiCTooltips");
-    public static final boolean ExtraTiC = Loader.isModLoaded("ExtraTiC");
+    public static final boolean PlusTic = Loader.isModLoaded("plustic");
     public static final boolean BiomesOPlenty = Loader.isModLoaded("BiomesOPlenty");
     public static final boolean Mekanism = Loader.isModLoaded("Mekanism");
     public static final boolean Metallurgy = Loader.isModLoaded("Metallurgy");

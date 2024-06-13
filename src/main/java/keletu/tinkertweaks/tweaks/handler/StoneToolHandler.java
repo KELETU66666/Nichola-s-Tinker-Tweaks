@@ -1,5 +1,6 @@
 package keletu.tinkertweaks.tweaks.handler;
 
+import keletu.tinkertweaks.config.Config;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
@@ -19,22 +20,20 @@ public class StoneToolHandler {
     // we can initialize this statically, because it wont be initialized until PostInit, where all materials are already registered
     private static Material stoneMaterial = TinkerRegistry.getMaterial("stone");
 
-    @SubscribeEvent(priority= EventPriority.HIGHEST)
-    public void onTooltip(ItemTooltipEvent event)
-    {
-        if(event.getEntityPlayer() == null)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onTooltip(ItemTooltipEvent event) {
+        if (event.getEntityPlayer() == null)
             return;
 
         // we're only interested if it's a tool part
-        if(!(event.getItemStack().getItem() instanceof IToolPart) || event.getItemStack().getItem() == TinkerTools.bowString || event.getItemStack().getItem() == TinkerTools.fletching || event.getItemStack().getItem() == TinkerTools.arrowShaft)
+        if (!(event.getItemStack().getItem() instanceof IToolPart) || event.getItemStack().getItem() == TinkerTools.bowString || event.getItemStack().getItem() == TinkerTools.fletching || event.getItemStack().getItem() == TinkerTools.arrowShaft)
             return;
 
         ItemStack stack = event.getItemStack();
-        IToolPart part = (IToolPart)stack.getItem();
+        IToolPart part = (IToolPart) stack.getItem();
 
         // stone parts disabled?
-        if(TinkerRegistry.getMaterial(part.getMaterialID(stack)) == stoneMaterial)
-        {
+        if (TinkerRegistry.getMaterial(part.getMaterialID(stack)) == stoneMaterial) {
             event.getToolTip().add(1, "");
             event.getToolTip().add(2, TextFormatting.DARK_RED + I18n.format("tooltip.part.castonly1"));
             event.getToolTip().add(3, TextFormatting.DARK_RED + I18n.format("tooltip.part.castonly2"));
@@ -45,46 +44,36 @@ public class StoneToolHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onToolCraft(TinkerCraftingEvent.ToolCraftingEvent event) {
-        for(int i = 0; i < event.getToolParts().size(); i++)
-        {
+        for (int i = 0; i < event.getToolParts().size(); i++) {
             // ignore bowstring and fletchings
-            if(event.getItemStack().getItem() instanceof ShortBow && i == 1)
+            if (event.getItemStack().getItem() instanceof ShortBow && i == 1)
                 continue;
-            if(event.getItemStack().getItem() instanceof LongBow && i == 1)
+            if (event.getItemStack().getItem() instanceof LongBow && i == 1)
                 continue;
-            if(event.getItemStack().getItem() instanceof CrossBow && i == 2)
+            if (event.getItemStack().getItem() instanceof CrossBow && i == 2)
                 continue;
-            if(event.getItemStack().getItem() instanceof Arrow && i >= 1)
+            if (event.getItemStack().getItem() instanceof Arrow && i >= 1)
                 continue;
-            if(event.getItemStack().getItem() instanceof Bolt && i == 2)
+            if (event.getItemStack().getItem() instanceof Bolt && i == 2)
                 continue;
 
             // don't allow stone tools
-            if(TinkerUtil.getMaterialFromStack(event.getToolParts().get(i)) == stoneMaterial)
+            if (TinkerUtil.getMaterialFromStack(event.getToolParts().get(i)) == stoneMaterial)
                 event.setCanceled(I18n.format("ktt.tool.disabled"));
         }
     }
 
-  /*  @SubscribeEvent
-    public void onToolCraft(TinkerEvent.OnItemBuilding event)
-    {
-        for(int i = 0; i < event.materials.size(); i++)
-        {
-            // ignore bowstring and fletchings
-            if(event.tool instanceof ShortBow && i == 1)
-                continue;
-            if(event.tool instanceof LongBow && i == 1)
-                continue;
-            if(event.tool instanceof CrossBow && i == 2)
-                continue;
-            if(event.tool instanceof Arrow && i >= 1)
-                continue;
-            if(event.tool instanceof Bolt && i == 2)
-                continue;
-
-            // don't allow stone tools
-            if(event.materials.get(i) == stoneMaterial)
-                event.setResult(Event.Result.DENY);
+    @SubscribeEvent
+    public void onMaterialRegistered(TinkerCraftingEvent.ToolPartCraftingEvent event) {
+        for (String entry : Config.loadAllowedParts()) {
+            String[] entries = entry.split(":");
+            if (TinkerUtil.getMaterialFromStack(event.getItemStack()) != null && TinkerUtil.getMaterialFromStack(event.getItemStack()).equals(TinkerRegistry.getMaterial(entries[0]))) {
+                if(event.getItemStack().getItem().getRegistryName().getPath().equals(entries[1])) {
+                    event.setCanceled(false);
+                    break;
+                }
+                event.setCanceled(true);
+            }
         }
-    }*/
+    }
 }

@@ -6,7 +6,10 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Config extends AbstractConfig {
 
@@ -190,6 +193,11 @@ public class Config extends AbstractConfig {
         return levelStr;
     }
 
+    public static List<String> loadAllowedParts()
+    {
+        return INSTANCE.configFile.nerf.input;
+    }
+    
     public static String getLevelupMessage(int currentLevel) {
         ConfigFile.Messages messages = INSTANCE.configFile.messages;
         if (messages.levelupMessages.containsKey(currentLevel)) {
