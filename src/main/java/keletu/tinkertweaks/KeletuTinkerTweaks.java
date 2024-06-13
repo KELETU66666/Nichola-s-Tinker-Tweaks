@@ -137,6 +137,13 @@ public class KeletuTinkerTweaks {
         //    RecipeRemover.removeAnyRecipe(new ItemStack(TinkerWorld.STONETORCH, 4));
         //}
 
+        if(Config.disableStoneTools()) {
+            Log.debug("Disabling tinkers stone tools");
+            MinecraftForge.EVENT_BUS.register(new StoneToolHandler());
+            //ChestGenHooks.removeItem(ChestGenHooks.BONUS_CHEST, new ItemStack(Items.stone_axe));
+            //ChestGenHooks.removeItem(ChestGenHooks.BONUS_CHEST, new ItemStack(Items.stone_pickaxe));
+        }
+
         // because diamond pickaxe is hax
         if(Config.nerfVanillaTools()) {
             // init whitelist

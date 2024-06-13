@@ -265,6 +265,8 @@ public class ConfigFile extends AbstractConfigFile {
         public boolean nerfVanillaBows = false;
         @Setting(comment = "Remove flints drop from gravel")
         public boolean removeFlintDrop = true;
+        @Setting(comment = "disable stone tools")
+        public boolean disableStoneTools = true;
     }
 
     public void nerfTools(){

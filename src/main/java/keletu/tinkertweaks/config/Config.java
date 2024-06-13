@@ -87,6 +87,9 @@ public class Config extends AbstractConfig {
     public static boolean nerfVanillaSwords() {
         return INSTANCE.configFile.general.nerfVanillaSwords;
     }
+    public static boolean disableStoneTools() {
+        return INSTANCE.configFile.general.disableStoneTools;
+    }
     public static List<Integer> bonusModifier() {
         return INSTANCE.configFile.modifier.bonusModifier;
     }
