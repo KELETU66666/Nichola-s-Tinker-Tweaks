@@ -212,17 +212,8 @@ public class KeletuTinkerTweaks {
 
         // wither head
         new ModMiningLevelBoost("witherskeletonhead", getVanillaMobHead(1), HarvestLevels._8_cobalt);
-        // netherstar
-        new ModMiningLevelBoost("netherstar", getVanillaMobHead(5), HarvestLevels._9_manyullym);
-
-        // rendering code
-        //ToolCore[] tools = new ToolCore[] { TinkerHarvestTools.pickaxe, TinkerHarvestTools.hammer };
-        //int[] modifierIds = new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28 };
-        //String[] renderNames = new String[] { "zombiehead", "skeletonskull", "creeperhead", "zombiepigmanhead", "blazehead", "blizzhead", "endermanhead", "witherskeletonskull", "netherstar" };
-
-        //for (ToolCore tool : tools)
-        //    for (int index = 0; index < modifierIds.length; ++index)
-        //        TinkerRegistryClient.addEffectRenderMapping(tool, modifierIds[index], Reference.RESOURCE, renderNames[index], true);
+        // dragonhead (netherstar)
+        new ModMiningLevelBoost("dragonhead", getVanillaMobHead(5), HarvestLevels._9_manyullym);
     }
 
     @EventHandler

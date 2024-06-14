@@ -24,7 +24,7 @@ public final class MiningLevelHandler {
             ((ModifierModelLoader) obj.get(null)).registerModifierFile("skeletonhead", new ResourceLocation(KeletuTinkerTweaks.MODID, "models/item/modifiers/skeletonhead"));
             ((ModifierModelLoader) obj.get(null)).registerModifierFile("creeperhead", new ResourceLocation(KeletuTinkerTweaks.MODID, "models/item/modifiers/creeperhead"));
             ((ModifierModelLoader) obj.get(null)).registerModifierFile("witherskeletonhead", new ResourceLocation(KeletuTinkerTweaks.MODID, "models/item/modifiers/witherskeletonhead"));
-            ((ModifierModelLoader) obj.get(null)).registerModifierFile("netherstar", new ResourceLocation(KeletuTinkerTweaks.MODID, "models/item/modifiers/netherstar"));
+            ((ModifierModelLoader) obj.get(null)).registerModifierFile("dragonhead", new ResourceLocation(KeletuTinkerTweaks.MODID, "models/item/modifiers/dragonhead"));
             ((ModifierModelLoader) obj.get(null)).registerModifierFile("endermanhead", new ResourceLocation(KeletuTinkerTweaks.MODID, "models/item/modifiers/endermanhead"));
             ((ModifierModelLoader) obj.get(null)).registerModifierFile("blazehead", new ResourceLocation(KeletuTinkerTweaks.MODID, "models/item/modifiers/blazehead"));
             if (ModSupportHelper.ThermalFoundation)
