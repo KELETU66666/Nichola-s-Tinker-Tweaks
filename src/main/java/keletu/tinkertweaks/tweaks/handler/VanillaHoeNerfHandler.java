@@ -9,6 +9,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class VanillaHoeNerfHandler {
     @SubscribeEvent
@@ -23,6 +25,7 @@ public class VanillaHoeNerfHandler {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void onItemToolTip(ItemTooltipEvent event) {
         if (event.getEntityPlayer() == null)
             return;

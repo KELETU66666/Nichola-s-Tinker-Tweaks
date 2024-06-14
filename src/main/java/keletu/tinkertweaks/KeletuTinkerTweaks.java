@@ -98,7 +98,8 @@ public class KeletuTinkerTweaks {
         networkWrapper = new NetworkWrapper("tinkerlevel" + ":sync");
         networkWrapper.registerPacketClient(ConfigSyncPacket.class);
 
-        HarvestLevels.updateHarvestLevelNames();
+        if (event.getSide().isClient())
+            HarvestLevels.updateHarvestLevelNames();
 
         CapabilityDamageXp.register();
 
@@ -114,8 +115,7 @@ public class KeletuTinkerTweaks {
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         // mobhead modifiers for mining boost
         registerBoostModifiers();
     }
@@ -134,19 +134,17 @@ public class KeletuTinkerTweaks {
         //  changeDurabilityModifiers();
 
         // stonetorches
-        if(Config.removeStoneTorchRecipe())
-        {
+        if (Config.removeStoneTorchRecipe()) {
             Log.debug("Removing stone torch recipe");
             removeRecipeByName(new ResourceLocation("tconstruct", "gadgets/stone/stone_torch"));
         }
 
-        if(Config.removeEFLNRecipe())
-        {
+        if (Config.removeEFLNRecipe()) {
             Log.debug("Removing stone torch recipe");
             removeRecipeByName(new ResourceLocation("tconstruct", "gadgets/throwball/efln"));
         }
 
-        if(Config.disableStoneTools()) {
+        if (Config.disableStoneTools()) {
             Log.debug("Disabling tinkers stone tools");
             MinecraftForge.EVENT_BUS.register(new StoneToolHandler());
             //ChestGenHooks.removeItem(ChestGenHooks.BONUS_CHEST, new ItemStack(Items.stone_axe));
@@ -154,7 +152,7 @@ public class KeletuTinkerTweaks {
         }
 
         // because diamond pickaxe is hax
-        if(Config.nerfVanillaTools()) {
+        if (Config.nerfVanillaTools()) {
             // init whitelist
             findToolsFromConfig();
 
@@ -163,17 +161,17 @@ public class KeletuTinkerTweaks {
         }
 
         // no hoes for you
-        if(Config.nerfVanillaHoes()) {
+        if (Config.nerfVanillaHoes()) {
             Log.debug("Vanilla hoe? More like vanilla go!");
             MinecraftForge.EVENT_BUS.register(new VanillaHoeNerfHandler());
         }
 
-        if(Config.nerfVanillaSwords()) {
+        if (Config.nerfVanillaSwords()) {
             Log.debug("Replacing swords with pasta");
             MinecraftForge.EVENT_BUS.register(new VanillaSwordNerfHandler());
         }
 
-        if(Config.nerfVanillaBows()) {
+        if (Config.nerfVanillaBows()) {
             Log.debug("Sabotaging bows");
             MinecraftForge.EVENT_BUS.register(new VanillaBowNerfHandler());
         }
@@ -185,16 +183,14 @@ public class KeletuTinkerTweaks {
         }
     }
 
-    private void flintTweaks()
-    {
-        if(Config.removeFlintDrop()) {
+    private void flintTweaks() {
+        if (Config.removeFlintDrop()) {
             Log.debug("Removing Flint drops from Gravel");
             MinecraftForge.EVENT_BUS.register(new FlintHandler());
         }
     }
 
-    private void registerBoostModifiers()
-    {
+    private void registerBoostModifiers() {
         // zombie head
         new ModMiningLevelBoost("zombiehead", getVanillaMobHead(2), HarvestLevels._2_copper);
         // skeleton skull
@@ -202,17 +198,17 @@ public class KeletuTinkerTweaks {
         // creeper head
         new ModMiningLevelBoost("creeperhead", getVanillaMobHead(4), HarvestLevels._5_diamond);
 
-      //  if(IguanaTweaksTConstruct.pulsar.isPulseLoaded(Reference.PULSE_MOBHEADS)) {
-            // pigman head
-            new ModMiningLevelBoost("zombiepigmanhead", getIguanaMobHead(1), HarvestLevels._5_diamond);
-            // blaze head
-            new ModMiningLevelBoost("blazehead", getIguanaMobHead(2), HarvestLevels._6_obsidian);
-            // blizz head
-            if(ModSupportHelper.ThermalFoundation)
-                new ModMiningLevelBoost("blizzhead", getIguanaMobHead(3), HarvestLevels._6_obsidian);
-            // enderman head
-            new ModMiningLevelBoost("endermanhead", getIguanaMobHead(0), HarvestLevels._7_ardite);
-       // }
+        //  if(IguanaTweaksTConstruct.pulsar.isPulseLoaded(Reference.PULSE_MOBHEADS)) {
+        // pigman head
+        new ModMiningLevelBoost("zombiepigmanhead", getIguanaMobHead(1), HarvestLevels._5_diamond);
+        // blaze head
+        new ModMiningLevelBoost("blazehead", getIguanaMobHead(2), HarvestLevels._6_obsidian);
+        // blizz head
+        if (ModSupportHelper.ThermalFoundation)
+            new ModMiningLevelBoost("blizzhead", getIguanaMobHead(3), HarvestLevels._6_obsidian);
+        // enderman head
+        new ModMiningLevelBoost("endermanhead", getIguanaMobHead(0), HarvestLevels._7_ardite);
+        // }
 
         // wither head
         new ModMiningLevelBoost("witherskeletonhead", getVanillaMobHead(1), HarvestLevels._8_cobalt);
@@ -228,20 +224,18 @@ public class KeletuTinkerTweaks {
         //    for (int index = 0; index < modifierIds.length; ++index)
         //        TinkerRegistryClient.addEffectRenderMapping(tool, modifierIds[index], Reference.RESOURCE, renderNames[index], true);
     }
-    
+
     @EventHandler
     public void serverStart(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandLevelTool());
         event.registerServerCommand(new CommandModifierDump());
     }
 
-    private ItemStack getVanillaMobHead(int meta)
-    {
+    private ItemStack getVanillaMobHead(int meta) {
         return new ItemStack(Items.SKULL, 1, meta);
     }
 
-    private ItemStack getIguanaMobHead(int meta)
-    {
+    private ItemStack getIguanaMobHead(int meta) {
         return new ItemStack(IguanaMobHeads.skullItem, 1, meta);
     }
 

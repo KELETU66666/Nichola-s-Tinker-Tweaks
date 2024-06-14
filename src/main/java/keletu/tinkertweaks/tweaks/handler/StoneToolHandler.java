@@ -9,6 +9,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.events.TinkerCraftingEvent;
 import slimeknights.tconstruct.library.materials.Material;
@@ -22,6 +24,7 @@ public class StoneToolHandler {
     // we can initialize this statically, because it wont be initialized until PostInit, where all materials are already registered
     private static Material stoneMaterial = TinkerRegistry.getMaterial("stone");
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onTooltip(ItemTooltipEvent event) {
         if (event.getEntityPlayer() == null)

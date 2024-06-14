@@ -10,6 +10,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ListIterator;
 
@@ -35,6 +37,7 @@ public class VanillaSwordNerfHandler {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void onItemToolTip(ItemTooltipEvent event) {
         if (event.getEntityPlayer() == null)
             return;

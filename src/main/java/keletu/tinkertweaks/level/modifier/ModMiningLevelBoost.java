@@ -7,8 +7,6 @@ import static keletu.tinkertweaks.level.ToolHarvestLevelNBT.TAG_IS_BOOSTED;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
-import slimeknights.tconstruct.library.tools.ToolNBT;
-import slimeknights.tconstruct.library.utils.TagUtil;
 import static slimeknights.tconstruct.library.utils.Tags.HARVESTLEVEL;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.tools.modifiers.ToolModifier;

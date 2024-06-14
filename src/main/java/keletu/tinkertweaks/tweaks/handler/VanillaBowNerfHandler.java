@@ -9,6 +9,8 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class VanillaBowNerfHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -25,6 +27,7 @@ public class VanillaBowNerfHandler {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void onItemToolTip(ItemTooltipEvent event) {
         if (event.getEntityPlayer() == null)
             return;
