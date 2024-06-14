@@ -39,6 +39,9 @@ tooltip.uselessBow1=This bows bowstring snapped!
 tooltip.part.castonly1=Can only be used to make casts,
 tooltip.part.castonly2=cannot be used to make a tool
 
+tooltip.chicken1=You dirty cheater.
+tooltip.chicken2=If you're sorry type '/imadirtycheater'
+
 item.iguana.tcon.skull.enderman.name=Enderman Head
 item.iguana.tcon.skull.pigman.name=Pigman Head
 item.iguana.tcon.skull.blaze.name=Blaze Head
@@ -47,6 +50,9 @@ item.iguana.tcon.skull.blizz.name=Blizz Head
 item.iguana.tcon.clay_bucket_unfired.name=Unfired Clay Bucket
 item.iguana.tcon.clay_bucket.name=%s Clay Bucket
 item.iguana.tcon.clay_bucket.empty.name=Clay Bucket
+
+message.apology=I am really sorry and will not do it again
+message.apologyaccepted=Apology accepted. Don't do it again
 
 modifier.zombiehead.name=MiningLevel +1
 modifier.skeletonhead.name=MiningLevel +1
@@ -82,6 +88,7 @@ message.levelup.9=You and your %s are living legends!
 message.levelup.10=No god could stand in the way of you and your %s!
 message.levelup.11=Your %s is pure awesome.
 message.levelup.generic=Your %s has reached level %s
+message.levelup.chicken=What are you, a chicken?
 
 message.levelup.miningboost=Suddenly, a flash of light shines from the tip of the item you hold.
 

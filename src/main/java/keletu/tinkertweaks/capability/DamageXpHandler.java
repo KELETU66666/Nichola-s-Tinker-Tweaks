@@ -71,7 +71,7 @@ public class DamageXpHandler implements IDamageXp, ICapabilitySerializable<NBTTa
       // check for identity. should work in most cases because the entity was killed without loading/unloading
       for(int i = 0; i < itemHandler.getSlots(); i++) {
         if(itemHandler.getStackInSlot(i) == tool) {
-          KeletuTinkerTweaks.modToolLeveling.addXp(tool, Math.round(damage), player);
+          KeletuTinkerTweaks.modToolLeveling.addXp(tool, Math.round(damage), player, false);
           return;
         }
       }
@@ -79,7 +79,7 @@ public class DamageXpHandler implements IDamageXp, ICapabilitySerializable<NBTTa
       // check for equal stack in case instance equality didn't find it
       for(int i = 0; i < itemHandler.getSlots(); i++) {
         if(ToolCore.isEqualTinkersItem(itemHandler.getStackInSlot(i), tool)) {
-          KeletuTinkerTweaks.modToolLeveling.addXp(itemHandler.getStackInSlot(i), Math.round(damage), player);
+          KeletuTinkerTweaks.modToolLeveling.addXp(itemHandler.getStackInSlot(i), Math.round(damage), player, false);
           return;
         }
       }

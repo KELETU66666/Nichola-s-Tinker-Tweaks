@@ -42,7 +42,7 @@ public class CommandLevelTool extends CommandBase {
         ToolLevelNBT data = new ToolLevelNBT(TinkerUtil.getModifierTag(itemStack, KeletuTinkerTweaks.modToolLeveling.getModifierIdentifier()));
         xp = KeletuTinkerTweaks.modToolLeveling.getXpForLevelup(data.level, itemStack);
       }
-      KeletuTinkerTweaks.modToolLeveling.addXp(itemStack, xp, player);
+      KeletuTinkerTweaks.modToolLeveling.addXp(itemStack, xp, player, false);
     }
     else {
       throw new CommandException("No tinker tool in hand");

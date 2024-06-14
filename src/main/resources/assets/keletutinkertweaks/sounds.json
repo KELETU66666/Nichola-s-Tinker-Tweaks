@@ -4,5 +4,11 @@
      "sounds": [
        "keletutinkertweaks:chime"
      ]
-   }
+   },
+  "chicken": {
+    "category": "player",
+    "sounds": [
+      "keletutinkertweaks:chicken"
+    ]
+  }
 }

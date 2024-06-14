@@ -2,6 +2,7 @@ package keletu.tinkertweaks;
 
 import keletu.tinkertweaks.capability.CapabilityDamageXp;
 import keletu.tinkertweaks.claybuckets.IguanaItems;
+import keletu.tinkertweaks.command.CommandIAmADirtyCheater;
 import keletu.tinkertweaks.config.Config;
 import keletu.tinkertweaks.config.ConfigSync;
 import keletu.tinkertweaks.config.ConfigSyncPacket;
@@ -14,14 +15,17 @@ import keletu.tinkertweaks.mininglevel.HarvestLevelTweaks;
 import keletu.tinkertweaks.mininglevel.TinkerMaterialTweaks;
 import keletu.tinkertweaks.mininglevel.VanillaToolTipHandler;
 import keletu.tinkertweaks.mobhead.IguanaMobHeads;
+import keletu.tinkertweaks.reference.Reference;
 import keletu.tinkertweaks.tweaks.handler.*;
 import keletu.tinkertweaks.util.DummyRecipe;
 import keletu.tinkertweaks.util.HarvestLevels;
 import keletu.tinkertweaks.util.Log;
 import keletu.tinkertweaks.util.ModSupportHelper;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -63,6 +67,7 @@ public class KeletuTinkerTweaks {
     private File modConfigurationDirectory;
 
     public static Set<Item> toolWhitelist = new HashSet<Item>();
+    public static Item rubberChicken;
 
     private static void findToolsFromConfig() {
         Log.debug("Setting up whitelist/blacklist for allowed tools");
@@ -93,6 +98,14 @@ public class KeletuTinkerTweaks {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         Log.init(event.getModLog());
+
+        rubberChicken = new Item();
+        rubberChicken.setRegistryName("rubber_chicken");
+        rubberChicken.setTranslationKey(Reference.prefix("rubber_chicken"));
+
+        ForgeRegistries.ITEMS.register(rubberChicken);
+        if(event.getSide().isClient())
+            ModelLoader.setCustomModelResourceLocation(rubberChicken, 0, new ModelResourceLocation(rubberChicken.getRegistryName(), "inventory"));
 
         modConfigurationDirectory = event.getModConfigurationDirectory();
         networkWrapper = new NetworkWrapper("tinkerlevel" + ":sync");
@@ -218,6 +231,7 @@ public class KeletuTinkerTweaks {
 
     @EventHandler
     public void serverStart(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandIAmADirtyCheater());
         event.registerServerCommand(new CommandLevelTool());
         event.registerServerCommand(new CommandModifierDump());
     }
