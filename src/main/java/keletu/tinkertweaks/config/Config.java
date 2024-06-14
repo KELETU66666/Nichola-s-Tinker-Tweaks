@@ -32,6 +32,10 @@ public class Config extends AbstractConfig {
         return INSTANCE.configFile.toolxp.levelMultiplier;
     }
 
+    public static float harvestLevelMultiplier() {
+        return INSTANCE.configFile.toolxp.harvestLevelMultiplier;
+    }
+
     public static int getDurabilityPercentage() {
         return INSTANCE.configFile.general.durabilityPercentage;
     }
@@ -75,9 +79,11 @@ public class Config extends AbstractConfig {
     public static boolean removeStoneTorchRecipe() {
         return INSTANCE.configFile.nerf.removeStoneTorchRecipe;
     }
+
     public static boolean removeEFLNRecipe() {
         return INSTANCE.configFile.nerf.removeEFLNRecipe;
     }
+
     public static boolean nerfVanillaTools() {
         return INSTANCE.configFile.general.nerfVanillaTools;
     }
@@ -89,6 +95,7 @@ public class Config extends AbstractConfig {
     public static boolean nerfVanillaBows() {
         return INSTANCE.configFile.general.nerfVanillaBows;
     }
+
     public static boolean removeFlintDrop() {
         return INSTANCE.configFile.general.removeFlintDrop;
     }
@@ -96,9 +103,11 @@ public class Config extends AbstractConfig {
     public static boolean nerfVanillaSwords() {
         return INSTANCE.configFile.general.nerfVanillaSwords;
     }
+
     public static boolean disableStoneTools() {
         return INSTANCE.configFile.general.disableStoneTools;
     }
+
     public static List<Integer> bonusModifier() {
         return INSTANCE.configFile.modifier.bonusModifier;
     }
@@ -199,11 +208,10 @@ public class Config extends AbstractConfig {
         return levelStr;
     }
 
-    public static List<String> loadAllowedParts()
-    {
+    public static List<String> loadAllowedParts() {
         return INSTANCE.configFile.nerf.input;
     }
-    
+
     public static String getLevelupMessage(int currentLevel) {
         ConfigFile.Messages messages = INSTANCE.configFile.messages;
         if (messages.levelupMessages.containsKey(currentLevel)) {

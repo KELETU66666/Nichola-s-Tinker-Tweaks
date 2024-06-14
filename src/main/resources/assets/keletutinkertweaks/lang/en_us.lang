@@ -1,5 +1,5 @@
 tooltip.level=Level
-tooltip.xp=XP
+tooltip.xp=Skill XP
 tooltip.level.boosted=Boosted
 tooltip.level.miningxp=Mining XP
 
@@ -30,6 +30,20 @@ tooltip.level.42=boni
 tooltip.level.66=Jadedcat
 tooltip.level.99=Hacker
 
+tooltip.uselessTool1=This tool cannot mine anything!
+tooltip.uselessTool2=It can only be used for crafting
+tooltip.uselessHoe1=This hoe cannot hoe anything!
+tooltip.uselessWeapon1=This weapon hits like a wet noodle!
+tooltip.uselessBow1=This bows bowstring snapped!
+
+tooltip.part.castonly1=Can only be used to make casts,
+tooltip.part.castonly2=cannot be used to make a tool
+
+item.iguana.tcon.skull.enderman.name=Enderman Head
+item.iguana.tcon.skull.pigman.name=Pigman Head
+item.iguana.tcon.skull.blaze.name=Blaze Head
+item.iguana.tcon.skull.blizz.name=Blizz Head
+
 modifier.zombiehead.name=MiningLevel +1
 modifier.skeletonhead.name=MiningLevel +1
 modifier.creeperhead.name=MiningLevel +1
@@ -50,6 +64,9 @@ modifier.endermanhead.desc=Increase Pickaxe's Mining Level
 modifier.blazehead.desc=Increase Pickaxe's Mining Level
 modifier.blizzhead.desc=Increase Pickaxe's Mining Level
 
+message.toolpart.disallow=You cannot make this part with this material.
+message.tool.disabled=This part is too crude to assemble a tool with it.
+
 message.levelup.2=You begin to feel comfortable handling the %s
 message.levelup.3=You are now accustomed to the weight of the %s
 message.levelup.4=You have become adept at handling the %s
@@ -61,6 +78,8 @@ message.levelup.9=You and your %s are living legends!
 message.levelup.10=No god could stand in the way of you and your %s!
 message.levelup.11=Your %s is pure awesome.
 message.levelup.generic=Your %s has reached level %s
+
+message.levelup.miningboost=Suddenly, a flash of light shines from the tip of the item you hold.
 
 message.modifier.haste=Adding redstone to a tool seems to increase its speed. (§4+Haste§3)
 message.modifier.luck=Increased chance of drops (§9+Luck§3)

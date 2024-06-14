@@ -233,7 +233,7 @@ public class ConfigFile extends AbstractConfigFile {
         public int newToolMinModifiers = 0;
 
         @Setting(comment = "Maximum achievable levels. If set to 0 or lower there is no upper limit")
-        public int maximumLevels = -1;
+        public int maximumLevels = 6;
 
         @Setting(comment = "If set to true, you get a random modifier on level up (default: true).")
         public boolean bonusRandomModifier = true;
@@ -258,11 +258,11 @@ public class ConfigFile extends AbstractConfigFile {
         @Setting(comment = "Makes all non-TConstruct tools mine nothing")
         public boolean nerfVanillaTools = true;
         @Setting(comment = "Makes all non-TConstruct hoes to not be able to hoe ground. Use the Mattock.")
-        public boolean nerfVanillaHoes = false;
+        public boolean nerfVanillaHoes = true;
         @Setting(comment = "Makes all non-TConstruct swords useless. Like whacking enemies with a stick.")
-        public boolean nerfVanillaSwords = false;
+        public boolean nerfVanillaSwords = true;
         @Setting(comment = "Makes all non-TConstruct bows useless. You suddenly forgot how to use a bow.")
-        public boolean nerfVanillaBows = false;
+        public boolean nerfVanillaBows = true;
         @Setting(comment = "Remove flints drop from gravel")
         public boolean removeFlintDrop = true;
         @Setting(comment = "disable stone tools")
@@ -438,13 +438,16 @@ public class ConfigFile extends AbstractConfigFile {
     @ConfigSerializable
     static class ToolXP {
         @Setting(comment = "Base XP used when no more specific entry is present for the tool")
-        public int defaultBaseXP = 500;
+        public int defaultBaseXP = 100;
 
         @Setting(comment = "Base XP for each of the listed tools")
         public Map<Item, Integer> baseXpForTool = new HashMap<>();
 
         @Setting(comment = "How much the XP-per-Level is multiplied by each time the tool levels up")
         public float levelMultiplier = 2f;
+
+        @Setting(comment = "How much the XP multiplied by base Skill XP")
+        public float harvestLevelMultiplier = 9.8F;
     }
 
     @ConfigSerializable

@@ -55,7 +55,7 @@ public class ModToolHarvestLeveling extends ModifierTrait {
     }
 
     public int getXpForLevelup(int level, ItemStack tool) {
-        return Config.getBaseXpForTool(tool.getItem());
+        return (int) (Config.getBaseXpForTool(tool.getItem()) * Config.harvestLevelMultiplier());
     }
 
     private ToolHarvestLevelNBT getLevelData(ItemStack itemStack) {

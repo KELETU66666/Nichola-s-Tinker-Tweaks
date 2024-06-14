@@ -61,7 +61,7 @@ public class StoneToolHandler {
 
             // don't allow stone tools
             if (TinkerUtil.getMaterialFromStack(event.getToolParts().get(i)) == stoneMaterial)
-                event.setCanceled(I18n.format("ktt.tool.disabled"));
+                event.setCanceled(I18n.format("message.tool.disabled"));
         }
     }
 
@@ -82,7 +82,7 @@ public class StoneToolHandler {
 
             // don't allow stone tools
             if (TinkerUtil.getMaterialFromStack(event.getToolParts().get(i)) == stoneMaterial)
-                event.setCanceled(I18n.format("ktt.tool.disabled"));
+                event.setCanceled(I18n.format("message.tool.disabled"));
         }
     }
 
@@ -95,7 +95,7 @@ public class StoneToolHandler {
                     event.setCanceled(false);
                     break;
                 }
-                event.setCanceled(true);
+                event.setCanceled(I18n.format("message.toolpart.disallow"));
             }
         }
     }
