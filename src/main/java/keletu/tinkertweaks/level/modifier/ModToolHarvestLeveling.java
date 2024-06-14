@@ -3,6 +3,7 @@ package keletu.tinkertweaks.level.modifier;
 import keletu.tinkertweaks.KeletuTinkerTweaks;
 import keletu.tinkertweaks.config.Config;
 import keletu.tinkertweaks.level.ToolHarvestLevelNBT;
+import static keletu.tinkertweaks.util.HarvestLevels._9_manyullym;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +18,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 
@@ -64,6 +66,19 @@ public class ModToolHarvestLeveling extends ModifierTrait {
 
     private static ToolHarvestLevelNBT getLevelData(NBTTagCompound modifierNBT) {
         return new ToolHarvestLevelNBT(modifierNBT);
+    }
+
+    @Override
+    public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+        super.applyEffect(rootCompound, modifierTag);
+
+        ToolHarvestLevelNBT data = getLevelData(modifierTag);
+
+        // apply bonus modifiers
+        NBTTagCompound toolTag = TagUtil.getToolTag(rootCompound);
+        if(data.isBoosted)
+            toolTag.setInteger(Tags.HARVESTLEVEL, Math.min(_9_manyullym, toolTag.getInteger(Tags.HARVESTLEVEL) + 1));
+        TagUtil.setToolTag(rootCompound, toolTag);
     }
 
     public void addXp(ItemStack tool, int amount, EntityPlayer player) {
