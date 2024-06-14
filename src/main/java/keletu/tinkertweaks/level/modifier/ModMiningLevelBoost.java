@@ -55,12 +55,12 @@ public class ModMiningLevelBoost extends ToolModifier {
 
     @Override
     public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-        ToolHarvestLevelNBT.levelUpMiningLevel(rootCompound, null);
+        //ToolHarvestLevelNBT.levelUpMiningLevel(rootCompound, null);
 
         // add a modifier if it doesn't require one, because ModBoolean will substract one on modify
-        if(!Config.mobHeadRequiresModifier()) {
-            ToolNBT tags = TagUtil.getToolStats(rootCompound);
-            tags.harvestLevel += 1;
-        }
+        //if(!Config.mobHeadRequiresModifier()) {
+        //    ToolNBT tags = TagUtil.getToolStats(rootCompound);
+        //    tags.harvestLevel += 1;
+        //}
     }
 }

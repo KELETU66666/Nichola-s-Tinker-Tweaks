@@ -1,16 +1,22 @@
 package keletu.tinkertweaks.level.modifier;
 
 import keletu.tinkertweaks.KeletuTinkerTweaks;
+import keletu.tinkertweaks.Tooltips;
 import keletu.tinkertweaks.config.Config;
 import keletu.tinkertweaks.level.ToolHarvestLevelNBT;
+import static keletu.tinkertweaks.util.HarvestLevels._0_stone;
 import static keletu.tinkertweaks.util.HarvestLevels._9_manyullym;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
@@ -76,8 +82,12 @@ public class ModToolHarvestLeveling extends ModifierTrait {
 
         // apply bonus modifiers
         NBTTagCompound toolTag = TagUtil.getToolTag(rootCompound);
-        if(data.isBoosted)
+        if (data.isBoosted) {
+            if (toolTag.getInteger(Tags.HARVESTLEVEL) == _0_stone)
+                return;
+
             toolTag.setInteger(Tags.HARVESTLEVEL, Math.min(_9_manyullym, toolTag.getInteger(Tags.HARVESTLEVEL) + 1));
+        }
         TagUtil.setToolTag(rootCompound, toolTag);
     }
 
@@ -113,28 +123,16 @@ public class ModToolHarvestLeveling extends ModifierTrait {
             data.bxp = 0; // Do not carry over extra XP; max 1 levelup per instance of XP gain
             data.level++;
             pickLeveled = true;
-            data.isBoosted=true;
+            data.isBoosted = true;
         }
         data.write(modifierTag);
         TagUtil.setModifiersTagList(tool, tagList);
         if (pickLeveled) {
             this.apply(tool);
-            //System.out.println("Tool nbt after apply:"+TagUtil.getTagSafe(tool));
-            try {
-                //System.out.println("Tool nbt before rebuild:"+TagUtil.getTagSafe(tool));
-                ToolBuilder.rebuildTool(tags, (TinkersItem) tool.getItem());
-                //if(Config.addBonusStatsOnLevelup()) {
-                //    // All we need to do for stat growth:
-                //    tool = updateStats(tool);
-                //}
-                ToolHarvestLevelNBT.levelUpMiningLevel(tags, player);
-                //System.out.println("Final tool nbt:"+TagUtil.getTagSafe(tool));
-            } catch (TinkerGuiException e) {
-                // this should never happen
-                e.printStackTrace();
-            }
-            if (!player.world.isRemote)
+            if (!player.world.isRemote) {
                 KeletuTinkerTweaks.proxy.playLevelupDing(player);
+                player.sendStatusMessage(new TextComponentTranslation(TextFormatting.GOLD + I18n.format("message.levelup.miningboost")), false);
+            }
         }
     }
 }

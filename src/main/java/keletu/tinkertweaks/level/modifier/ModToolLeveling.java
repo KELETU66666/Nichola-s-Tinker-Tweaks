@@ -226,10 +226,6 @@ public class ModToolLeveling extends ProjectileModifierTrait {
                 //System.out.println("Tool nbt before rebuild:"+TagUtil.getTagSafe(tool));
                 NBTTagCompound rootTag = TagUtil.getTagSafe(tool);
                 ToolBuilder.rebuildTool(rootTag, (TinkersItem) tool.getItem());
-                if(Config.addBonusStatsOnLevelup()) {
-                    // All we need to do for stat growth:
-                    tool = updateStats(tool);
-                }
                 tool.setTagCompound(rootTag);
                 //System.out.println("Final tool nbt:"+TagUtil.getTagSafe(tool));
             } catch (TinkerGuiException e) {
@@ -242,8 +238,6 @@ public class ModToolLeveling extends ProjectileModifierTrait {
                 KeletuTinkerTweaks.proxy.sendLevelUpMessage(data.level, tool, player);
                 // add extra message for the modifier
                 if (modifier != null) KeletuTinkerTweaks.proxy.sendModifierMessage(modifier, tool, player);
-                // TODO: send stats up message
-                if(Config.addBonusStatsOnLevelup()) KeletuTinkerTweaks.proxy.sendStatsUpMessage(data.level, tool, player);
             }
         }
     }
@@ -276,28 +270,5 @@ public class ModToolLeveling extends ProjectileModifierTrait {
                 this.addXp(launcher, xp, (EntityPlayer) attacker);
             }
         }
-    }
-
-    // Stolen from https://github.com/Mrthomas20121-Mods/Tinkers-Leveling/blob/38a771651a953702d82fce1c07f42ad38d425f76/src/main/java/mrthomas20121/tinkers_leveling/util/ToolLevelData.java#L10
-    // Main difference is this is always applied right at the end after levelup, and this is not tracked in the base stats or in a modifer.
-    public static ItemStack updateStats(ItemStack tool) {
-        // First get the level of the tool
-        NBTTagList tagList = TagUtil.getModifiersTagList(tool);
-        int index = TinkerUtil.getIndexInCompoundList(tagList, "tinkertweaks");
-        NBTTagCompound modifierTag = tagList.getCompoundTagAt(index);
-        IModifier modifier = null;
-        ToolLevelNBT data = getLevelData(modifierTag);
-        int level = data.level;
-        // Get the stats map
-        Map<String, Float> statsMap = Config.statBonusValues();
-        ToolNBT toolNBT = TagUtil.getOriginalToolStats(tool);
-        // Apply stat bonuses based on current level
-        toolNBT.attackSpeedMultiplier*=Math.pow(statsMap.get("attackSpeedMultiplier"), level);
-        toolNBT.durability*=Math.pow(statsMap.get("durabilityMultiplier"), level);
-        toolNBT.speed+=(statsMap.get("miningSpeedBonus")*level);
-        toolNBT.attack+=(statsMap.get("damageBonus")*level);
-        // Boost bow stats if the tool is bow or crossbow TODO:
-        TagUtil.setToolTag(tool, toolNBT.get());
-        return tool;
     }
 }

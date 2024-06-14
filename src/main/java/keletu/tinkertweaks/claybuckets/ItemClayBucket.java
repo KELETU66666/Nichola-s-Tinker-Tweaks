@@ -38,7 +38,6 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-@SuppressWarnings("deprecation")
 public class ItemClayBucket extends Item {
 
 	public static final String TAG_FLUIDS = "fluids";
@@ -48,7 +47,7 @@ public class ItemClayBucket extends Item {
 	public ItemClayBucket() {
 		this.setCreativeTab(TinkerRegistry.tabTools);
 		this.setRegistryName("clay_bucket");
-		this.setTranslationKey("clay_bucket");
+		this.setTranslationKey(Reference.prefix("clay_bucket"));
 		this.hasSubtypes = true;
 
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DispenseClayBucket.INSTANCE);

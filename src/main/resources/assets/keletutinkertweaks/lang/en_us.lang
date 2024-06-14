@@ -44,6 +44,10 @@ item.iguana.tcon.skull.pigman.name=Pigman Head
 item.iguana.tcon.skull.blaze.name=Blaze Head
 item.iguana.tcon.skull.blizz.name=Blizz Head
 
+item.iguana.tcon.clay_bucket_unfired.name=Unfired Clay Bucket
+item.iguana.tcon.clay_bucket.name=%s Clay Bucket
+item.iguana.tcon.clay_bucket.empty.name=Clay Bucket
+
 modifier.zombiehead.name=MiningLevel +1
 modifier.skeletonhead.name=MiningLevel +1
 modifier.creeperhead.name=MiningLevel +1

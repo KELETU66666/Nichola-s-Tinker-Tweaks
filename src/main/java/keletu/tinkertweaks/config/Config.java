@@ -144,24 +144,6 @@ public class Config extends AbstractConfig {
         return INSTANCE.configFile.general.bonusModifierSlot;
     }
 
-    public static boolean addBonusStatsOnLevelup() {
-        return INSTANCE.configFile.general.bonusStats;
-    }
-
-
-    public static Map<String, Float> statBonusValues() {
-        Map<String, Float> statsMap = new HashMap<String, Float>() {{
-            put("damageBonus", INSTANCE.configFile.bonusstats.damageBonus);
-            put("durabilityMultiplier", INSTANCE.configFile.bonusstats.durabilityMultiplier);
-            put("miningSpeedBonus", INSTANCE.configFile.bonusstats.miningSpeedBonus);
-            put("attackSpeedMultiplier", INSTANCE.configFile.bonusstats.attackSpeedMultiplier);
-            put("drawSpeedBonus", INSTANCE.configFile.bonusstats.drawSpeedBonus);
-            put("projectileSpeedBonus", INSTANCE.configFile.bonusstats.projectileSpeedBonus);
-        }};
-
-        return statsMap;
-    }
-
     // Newly added for getting message strings:
     public static boolean shouldUseConfigLevelTitles() {
         return INSTANCE.configFile.messages.configLevelTitles;
