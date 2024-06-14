@@ -72,6 +72,12 @@ public class Config extends AbstractConfig {
         return INSTANCE.configFile.general.levelingPickaxeBoost;
     }
 
+    public static boolean removeStoneTorchRecipe() {
+        return INSTANCE.configFile.nerf.removeStoneTorchRecipe;
+    }
+    public static boolean removeEFLNRecipe() {
+        return INSTANCE.configFile.nerf.removeEFLNRecipe;
+    }
     public static boolean nerfVanillaTools() {
         return INSTANCE.configFile.general.nerfVanillaTools;
     }

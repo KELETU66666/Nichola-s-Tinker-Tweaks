@@ -15,6 +15,7 @@ import keletu.tinkertweaks.mininglevel.TinkerMaterialTweaks;
 import keletu.tinkertweaks.mininglevel.VanillaToolTipHandler;
 import keletu.tinkertweaks.mobhead.IguanaMobHeads;
 import keletu.tinkertweaks.tweaks.handler.*;
+import keletu.tinkertweaks.util.DummyRecipe;
 import keletu.tinkertweaks.util.HarvestLevels;
 import keletu.tinkertweaks.util.Log;
 import keletu.tinkertweaks.util.ModSupportHelper;
@@ -31,8 +32,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import slimeknights.mantle.network.NetworkWrapper;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
@@ -131,11 +134,17 @@ public class KeletuTinkerTweaks {
         //  changeDurabilityModifiers();
 
         // stonetorches
-        //if(Config.removeStoneTorchRecipe)
-        //{
-        //    Log.debug("Removing stone torch recipe");
-        //    RecipeRemover.removeAnyRecipe(new ItemStack(TinkerWorld.STONETORCH, 4));
-        //}
+        if(Config.removeStoneTorchRecipe())
+        {
+            Log.debug("Removing stone torch recipe");
+            removeRecipeByName(new ResourceLocation("tconstruct", "gadgets/stone/stone_torch"));
+        }
+
+        if(Config.removeEFLNRecipe())
+        {
+            Log.debug("Removing stone torch recipe");
+            removeRecipeByName(new ResourceLocation("tconstruct", "gadgets/throwball/efln"));
+        }
 
         if(Config.disableStoneTools()) {
             Log.debug("Disabling tinkers stone tools");
@@ -245,4 +254,8 @@ public class KeletuTinkerTweaks {
     //        TinkerRegistry.registerModifier(new ModBonusMiningLevel(new ItemStack[] {new ItemStack(Items.DIAMOND) }, "Diamond"));
     //        TinkerRegistry.registerModifier(new ModBonusMiningLevel(new ItemStack[] {new ItemStack(Items.EMERALD) }, "Emerald"));
     //    }
+
+    public static void removeRecipeByName(@Nonnull ResourceLocation location) {
+        ForgeRegistries.RECIPES.register(new DummyRecipe().setRegistryName(location));
+    }
 }

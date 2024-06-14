@@ -5,6 +5,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -13,6 +14,7 @@ import slimeknights.tconstruct.library.events.TinkerCraftingEvent;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
+import slimeknights.tconstruct.smeltery.events.TinkerCastingEvent;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.ranged.item.*;
 
@@ -63,12 +65,52 @@ public class StoneToolHandler {
         }
     }
 
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onPartReplace(TinkerCraftingEvent.ToolPartReplaceEvent event) {
+        for (int i = 0; i < event.getToolParts().size(); i++) {
+            // ignore bowstring and fletchings
+            if (event.getItemStack().getItem() instanceof ShortBow && i == 1)
+                continue;
+            if (event.getItemStack().getItem() instanceof LongBow && i == 1)
+                continue;
+            if (event.getItemStack().getItem() instanceof CrossBow && i == 2)
+                continue;
+            if (event.getItemStack().getItem() instanceof Arrow && i >= 1)
+                continue;
+            if (event.getItemStack().getItem() instanceof Bolt && i == 2)
+                continue;
+
+            // don't allow stone tools
+            if (TinkerUtil.getMaterialFromStack(event.getToolParts().get(i)) == stoneMaterial)
+                event.setCanceled(I18n.format("ktt.tool.disabled"));
+        }
+    }
+
     @SubscribeEvent
-    public void onMaterialRegistered(TinkerCraftingEvent.ToolPartCraftingEvent event) {
+    public void onToolPartCrafting(TinkerCraftingEvent.ToolPartCraftingEvent event) {
         for (String entry : Config.loadAllowedParts()) {
             String[] entries = entry.split(":");
             if (TinkerUtil.getMaterialFromStack(event.getItemStack()) != null && TinkerUtil.getMaterialFromStack(event.getItemStack()).equals(TinkerRegistry.getMaterial(entries[0]))) {
                 if(event.getItemStack().getItem().getRegistryName().getPath().equals(entries[1])) {
+                    event.setCanceled(false);
+                    break;
+                }
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onToolPartCrafting(TinkerCastingEvent.OnCasting event) {
+        for (String entry : Config.loadAllowedParts()) {
+            String[] entries = entry.split(":");
+            Fluid fluid = null;
+            if(event.tile.tank.getFluid() != null) {
+                fluid = event.tile.tank.getFluid().getFluid();
+            }
+            ItemStack result = event.recipe.getResult(event.tile.getStackInSlot(0), fluid);
+            if (TinkerUtil.getMaterialFromStack(result) != null && TinkerUtil.getMaterialFromStack(result).equals(TinkerRegistry.getMaterial(entries[0]))) {
+                if(result.getItem().getRegistryName().getPath().equals(entries[1])) {
                     event.setCanceled(false);
                     break;
                 }

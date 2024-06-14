@@ -407,6 +407,13 @@ public class ConfigFile extends AbstractConfigFile {
      **/
     @ConfigSerializable
     static class Nerfs {
+
+        @Setting(comment = "Remove Stone Torch Related Recipes")
+        public boolean removeStoneTorchRecipe = true;
+
+        @Setting(comment = "Remove EFLN Related Recipes")
+        public boolean removeEFLNRecipe = true;
+        
         @Setting(comment = "Change the type of the exclusion.\n'blacklist' means the listed tools are made unusable.\n'whitelist' means ALL tools except the listed ones are unusable.")
         public boolean excludedToolsIsWhitelist = false;
 
