@@ -51,7 +51,7 @@ import java.util.Set;
 public class KeletuTinkerTweaks {
 
     public static final String MODID = "keletutinkertweaks";
-    public static final String VERSION = "${version}";
+    public static final String VERSION = "1.0.0";
 
     @SidedProxy(clientSide = "keletu.tinkertweaks.CommonProxy", serverSide = "keletu.tinkertweaks.CommonProxy")
     public static CommonProxy proxy;
