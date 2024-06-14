@@ -239,7 +239,7 @@ public class ConfigFile extends AbstractConfigFile {
         public boolean bonusRandomModifier = true;
 
         @Setting(comment = "If set to true, you get an extra free modifier slot on level up (default: false).")
-        public boolean bonusModifierSlot = false;
+        public boolean bonusModifierSlot = true;
         @Setting(comment = "Change durability of all tool materials (in percent)")
         public int durabilityPercentage = 80;
         @Setting(comment = "Change mining speed of all tool materials (in percent)")

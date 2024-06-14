@@ -27,13 +27,11 @@ import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
-import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.tools.ranged.BowCore;
 import slimeknights.tconstruct.library.utils.*;
 import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
 
 import java.util.List;
-import java.util.Map;
 
 public class ModToolLeveling extends ProjectileModifierTrait {
 
@@ -187,7 +185,7 @@ public class ModToolLeveling extends ProjectileModifierTrait {
                     //if (modifierIndex == modifiers.size() || Config.addModifierSlotOnLevelup()) {
                     //    data.bonusModifiers++;
                     //}
-                    if (modifierIndex != modifiers.size() || Config.addModifierSlotOnLevelup()) {
+                    if (modifierIndex != modifiers.size()) {
                         modifier = modifiers.get(modifierIndex);
 
                         int freeModifiers = ToolHelper.getFreeModifiers(tool);
@@ -210,7 +208,7 @@ public class ModToolLeveling extends ProjectileModifierTrait {
                 } while (!applied && !modifiers.isEmpty());
             }
             //TODO
-            if (Config.bonusEmptyModifier().contains(data.level)) {
+            if (Config.bonusEmptyModifier().contains(data.level) && Config.addModifierSlotOnLevelup()) {
                 //System.out.println("Doing extra slot on levelup");
                 // All we need to do for extra free modifier:
                 data.bonusModifiers++;
