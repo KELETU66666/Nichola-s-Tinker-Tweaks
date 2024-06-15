@@ -1,39 +1,41 @@
 package keletu.tinkertweaks.level.modifier;
 
 import keletu.tinkertweaks.KeletuTinkerTweaks;
-import keletu.tinkertweaks.capability.CapabilityDamageXp;
 import keletu.tinkertweaks.config.Config;
 import keletu.tinkertweaks.level.ToolLevelNBT;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
-import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
+import slimeknights.tconstruct.library.tools.SwordCore;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ranged.BowCore;
+import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
 import slimeknights.tconstruct.library.utils.*;
+import slimeknights.tconstruct.tools.common.entity.EntityShuriken;
 import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
+import slimeknights.tconstruct.tools.ranged.item.Shuriken;
 
 import java.util.List;
 
@@ -81,19 +83,6 @@ public class ModToolLeveling extends ProjectileModifierTrait {
     }
 
     @Override
-    public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
-        if (!target.getEntityWorld().isRemote && wasHit && player instanceof EntityPlayer) {
-            // if we killed it the event for distributing xp was already fired and we just do it manually here
-            EntityPlayer entityPlayer = (EntityPlayer) player;
-            if (!target.isEntityAlive()) {
-                addXp(tool, damageDealt <= 0 ? 1 : (int) damageDealt, entityPlayer, true);
-            } else if (target.hasCapability(CapabilityDamageXp.CAPABILITY, null)) {
-                target.getCapability(CapabilityDamageXp.CAPABILITY, null).addDamageFromTool(damageDealt, tool, entityPlayer);
-            }
-        }
-    }
-
-    @Override
     public void onBlock(ItemStack tool, EntityPlayer player, LivingHurtEvent event) {
         if (player != null && !player.world.isRemote && player.getActiveItemStack() == tool) {
             int xp = Math.round(event.getAmount());
@@ -116,6 +105,78 @@ public class ModToolLeveling extends ProjectileModifierTrait {
     @SubscribeEvent
     public void onPath(TinkerToolEvent.OnShovelMakePath event) {
         addXp(event.itemStack, 1, event.player, false);
+    }
+
+
+    @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+    public void onHurt(LivingHurtEvent event) {
+        // only player caused damage
+        if (!(event.getSource().damageType.equals("player") || event.getSource().damageType.equals("arrow")))
+            return;
+
+        // only players
+        if (!(event.getSource().getTrueSource() instanceof EntityPlayer))
+            return;
+        EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
+        // but no fake players
+        if (player instanceof FakePlayer)
+            return;
+
+        ItemStack stack = player.getHeldItemMainhand();
+        if (event.getSource().getImmediateSource() instanceof EntityShuriken) {
+            if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof Shuriken)) {
+                if (player.inventory.currentItem == 0)
+                    stack = player.inventory.getStackInSlot(8);
+                else
+                    stack = player.inventory.getStackInSlot(player.inventory.currentItem + 1);
+            }
+
+            if (stack != ItemStack.EMPTY && !(stack.getItem() instanceof Shuriken))
+                stack = ItemStack.EMPTY;
+        }
+
+        if (stack == ItemStack.EMPTY || !stack.hasTagCompound())
+            return;
+
+        if (stack.getItem() == null || !(stack.getItem() instanceof ToolCore))
+            return;
+
+        int xp = 0;
+        // is a weapon?
+        if (stack.getItem() instanceof SwordCore)
+            xp = Math.round(event.getAmount());
+        else
+            xp = Math.round((event.getAmount() - 0.1f) / 2);
+
+        // reduce xp for hitting poor animals
+        if (event.getEntityLiving() instanceof EntityAnimal)
+            xp = Math.max(1, xp / 2);
+
+        // dead stuff gives little xp
+        boolean cheatyXP = false;
+        if (!event.getEntityLiving().isEntityAlive()) {
+            xp = Math.max(1, Math.round(xp / 4f));
+            cheatyXP = true;
+        }
+
+        ItemStack ammo = ItemStack.EMPTY;
+        // projectile weapons also get xp on their ammo!
+        if (stack.getItem() instanceof BowCore && event.getSource().damageType.equals("arrow")) {
+            ammo = ((BowCore) stack.getItem()).getAmmoToRender(stack, player);
+            if (ammo != ItemStack.EMPTY && !(ammo.getItem() instanceof ToolCore))
+                ammo = ItemStack.EMPTY;
+        }
+
+        // projectile weapons and ammo only get xp when they're shot
+        if (!event.getSource().damageType.equals("arrow")) {
+            if (stack.getItem() instanceof BowCore)
+                return;
+            if (stack.getItem() instanceof ProjectileCore)
+                return;
+        }
+
+        for (ItemStack itemstack : new ItemStack[]{stack, ammo})
+            addXp(itemstack, xp, player, cheatyXP);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
@@ -160,7 +221,7 @@ public class ModToolLeveling extends ProjectileModifierTrait {
         }
 
         int cheat = 0;
-        if(isCheat) {
+        if (isCheat) {
             cheat = data.cheat_xp + data.xp;
         }
 
@@ -282,20 +343,5 @@ public class ModToolLeveling extends ProjectileModifierTrait {
 
     private static ToolLevelNBT getLevelData(NBTTagCompound modifierNBT) {
         return new ToolLevelNBT(modifierNBT);
-    }
-
-    @Override
-    public void afterHit(EntityProjectileBase projectile, World world, ItemStack ammoStack, EntityLivingBase attacker, Entity target, double impactSpeed) {
-        if (impactSpeed > 0.4f && attacker instanceof EntityPlayer) {
-            ItemStack launcher = projectile.tinkerProjectile.getLaunchingStack();
-            if (launcher.getItem() instanceof BowCore) {
-                double drawTime = ((BowCore) launcher.getItem()).getDrawTime();
-                double drawSpeed = ProjectileLauncherNBT.from(launcher).drawSpeed;
-                double drawTimeInSeconds = 1d / (20d * drawSpeed / drawTime);
-                // we award 5 xp per 1s draw time
-                int xp = MathHelper.ceil((5d * drawTimeInSeconds));
-                this.addXp(launcher, xp, (EntityPlayer) attacker, !target.isEntityAlive());
-            }
-        }
     }
 }
