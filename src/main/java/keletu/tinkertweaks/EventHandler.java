@@ -46,7 +46,7 @@ public final class EventHandler {
             KeletuTinkerTweaks.modToolLeveling.apply(event.tag);
         }
 
-        if(event.tool instanceof Pickaxe) {
+        if(event.tool instanceof Pickaxe && toolTag.getInteger(Tags.HARVESTLEVEL) > 1) {
             if (TinkerUtil.getModifierTag(event.tag, KeletuTinkerTweaks.modHarvestLeveling.getModifierIdentifier()).isEmpty()) {
                 KeletuTinkerTweaks.modHarvestLeveling.apply(event.tag);
             }
