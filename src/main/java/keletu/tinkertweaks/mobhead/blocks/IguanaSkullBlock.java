@@ -18,11 +18,12 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.crafting.IInfusionStabiliser;
 
 import java.util.Random;
 
-@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser")
-public class IguanaSkullBlock extends BlockSkull /*implements IInfusionStabiliser */{
+@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser")
+public class IguanaSkullBlock extends BlockSkull implements IInfusionStabiliser {
 
 	public IguanaSkullBlock() {
 		super();
@@ -65,9 +66,9 @@ public class IguanaSkullBlock extends BlockSkull /*implements IInfusionStabilise
         ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(FACING, NODROP).build());
     }
 
-    //@Optional.Method(modid = "Thaumcraft")
-    //@Override
-    //public boolean canStabaliseInfusion(World world, int x, int y, int z) {
-    //    return true;
-    //}
+    @Optional.Method(modid = "thaumcraft")
+    @Override
+    public boolean canStabaliseInfusion(World world, BlockPos pos) {
+        return true;
+    }
 }

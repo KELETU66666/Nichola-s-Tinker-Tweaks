@@ -1,11 +1,9 @@
 package keletu.tinkertweaks.level.modifier;
 
 import keletu.tinkertweaks.KeletuTinkerTweaks;
-import keletu.tinkertweaks.Tooltips;
 import keletu.tinkertweaks.config.Config;
 import keletu.tinkertweaks.level.ToolHarvestLevelNBT;
 import static keletu.tinkertweaks.util.HarvestLevels._0_stone;
-import static keletu.tinkertweaks.util.HarvestLevels._9_manyullym;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,19 +12,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
-import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
-import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
-import slimeknights.tconstruct.library.utils.ToolBuilder;
 
 public class ModToolHarvestLeveling extends ModifierTrait {
 
@@ -86,7 +80,7 @@ public class ModToolHarvestLeveling extends ModifierTrait {
             if (toolTag.getInteger(Tags.HARVESTLEVEL) == _0_stone)
                 return;
 
-            toolTag.setInteger(Tags.HARVESTLEVEL, Math.min(_9_manyullym, toolTag.getInteger(Tags.HARVESTLEVEL) + 1));
+            toolTag.setInteger(Tags.HARVESTLEVEL, toolTag.getInteger(Tags.HARVESTLEVEL) + 1);
         }
         TagUtil.setToolTag(rootCompound, toolTag);
     }

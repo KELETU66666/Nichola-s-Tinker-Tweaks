@@ -23,11 +23,14 @@ public class CommandIAmADirtyCheater extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender p_71518_1_) {
-        if (isCheater(p_71518_1_)) {
-            return "I heard you like chicken";
-        } else {
-            return "Why are you saying that you're a dirty cheater?";
-        }
+        /*if(!Loader.isModLoaded("ftbutilities")) {
+            if (isCheater(p_71518_1_)) {
+                return "/imadirtycheater I heard you like chicken";
+            } else {
+                return "/imadirtycheater Why are you saying that you're a dirty cheater?";
+            }
+        }else*/
+            return "/imadirtycheater You'll know when you need it.";
     }
 
     @Override

@@ -1,5 +1,7 @@
 tooltip.level=等级
 tooltip.xp=经验
+tooltip.level.boosted=已升级
+tooltip.level.miningxp=挖掘经验
 
 mininglevel.stone=石头
 mininglevel.copper=铜
@@ -23,10 +25,60 @@ tooltip.level.8=史诗
 tooltip.level.9=传奇
 tooltip.level.10=神级
 tooltip.level.11=出神
-#tooltip.level.19=MoxieGrrl
-#tooltip.level.42=boni
-#tooltip.level.66=Jadedcat
+tooltip.level.19=MoxieGrrl
+tooltip.level.42=boni
+tooltip.level.66=Jadedcat
 tooltip.level.99=骇客
+
+tooltip.uselessTool1=这玩意啥都挖不了！
+tooltip.uselessTool2=只能用于合成
+tooltip.uselessHoe1=这把锄还未开刃！
+tooltip.uselessWeapon1=这把剑像面条一样软！
+tooltip.uselessBow1=这把弓的弦断了！
+
+tooltip.part.castonly1=只能用来浇筑，
+tooltip.part.castonly2=不能用来组装工具
+
+tooltip.chicken1=作弊是不好的。
+tooltip.chicken2=如果你觉得愧疚，那就输入 '/imadirtycheater'
+
+item.iguana.tcon.skull.enderman.name=末影人的头
+item.iguana.tcon.skull.pigman.name=猪人的头
+item.iguana.tcon.skull.blaze.name=烈焰人的头
+item.iguana.tcon.skull.blizz.name=寒冰人的头
+
+item.iguana.tcon.clay_bucket_unfired.name=未烧制的粘土桶
+item.iguana.tcon.clay_bucket.name=%s 粘土桶
+item.iguana.tcon.clay_bucket.empty.name=粘土桶
+
+item.iguana.tcon.rubber_chicken.name=你的工具
+
+message.apology=我真的错了,真的不会有下次了.
+message.apologyaccepted=放你一马，下不为例。
+
+
+modifier.zombiehead.name=僵尸头颅
+modifier.skeletonhead.name=骷髅颅骨
+modifier.creeperhead.name=爬行者头颅
+modifier.witherskeletonhead.name=凋灵骷髅颅骨
+modifier.dragonhead.name=龙首
+modifier.zombiepigmanhead.name=僵尸猪人头颅
+modifier.endermanhead.name=末影人头颅
+modifier.blazehead.name=烈焰人头颅
+modifier.blizzhead.name=寒冰人头颅
+
+modifier.zombiehead.desc=挖掘等级+1
+modifier.skeletonhead.desc=挖掘等级+1
+modifier.creeperhead.desc=挖掘等级+1
+modifier.witherskeletonhead.desc=挖掘等级+1
+modifier.dragonhead.desc=挖掘等级+1
+modifier.zombiepigmanhead.desc=挖掘等级+1
+modifier.endermanhead.desc=挖掘等级+1
+modifier.blazehead.desc=挖掘等级+1
+modifier.blizzhead.desc=挖掘等级+1
+
+message.toolpart.disallow=这种材料不能用于制作这个部件。
+message.tool.disabled=某些部件过于粗糙导致无法组装成工具。
 
 message.levelup.2=你开始觉得使用%s时有些舒服了
 message.levelup.3=你渐渐开始习惯%s的重量
@@ -39,3 +91,31 @@ message.levelup.9=你与你的%s就是活着的传奇！
 message.levelup.10=神也无法阻挡你和你的%s了！
 message.levelup.11=你的%s太出色了。
 message.levelup.generic=你的%s已到达等级%s
+message.levelup.chicken=我卢本伟没有开挂！
+
+message.levelup.miningboost=突然,一道闪光启发了你对你手持物品的提示
+
+message.modifier.haste=你将它随处挥霍 (§4+急迫§3)
+message.modifier.luck=拿着它或许能给你带来好运? (§9+时运§3)
+message.modifier.mending_moss=看样子覆上了一片苔藓 (§2+经验修补§3)
+message.modifier.diamond=看起来它很硬 (§b+钻石§3)
+message.modifier.emerald=你感觉这个工具会更耐用 (§a+绿宝石§3)
+message.modifier.writable=+1 强化槽 (§f+可塑§3)
+message.modifier.reinforced=你的工具将更加耐用 (§0+耐久§3)
+message.modifier.lightweight=快如闪电 (§b+轻便§3)
+message.modifier.splitting=你的箭矢得了精神分裂症 (§e+散射§3)
+message.modifier.fins=你的弹射物可以在水里游泳 (§9+鱼鳍§3)
+message.modifier.sharp=你该花些时间打磨钝刀 (§f+锋利§3)
+message.modifier.necrotic=你的剑似乎长了尖牙 (§4+生命窃取§3)
+message.modifier.webbed=给你的对头糊上一些黏糊糊的物质 (§f+织网§3)
+message.modifier.fiery=呼...提示中迸发出了火焰 (§6+火焰附加§3)
+message.modifier.knockback=呼之即去，挥也之即去 (§7+击退§3)
+message.modifier.shulking=希望你的对头有恐高症 (§5+悬浮§3)
+message.modifier.stiff=格挡只是为了更好的反击 (§7+坚忍§3)
+message.modifier.smite=不死者之殇 (§e+亡灵杀手§3)
+message.modifier.bane_of_arthropods=爬行族的末路 (§1+截肢杀手§3)
+message.modifier.glowing=黑暗将不再能阻挡你前进的步伐 (§e+荧光§3)
+message.modifier.beheading=大难临"头" (§5+斩首§3)
+message.modifier.autosmelt=是时候让熔炉退休了 (§6+自动冶炼§3)
+message.modifier.aquadynamic=你的工具不再畏惧深海 (§9+水下速掘§3)
+message.modifier.generic=你的工具得到了一个新的强化槽！
