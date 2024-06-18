@@ -4,15 +4,7 @@ import keletu.tinkertweaks.mobhead.IguanaMobHeads;
 import keletu.tinkertweaks.mobhead.renderers.IguanaTileEntitySkullRenderer;
 import keletu.tinkertweaks.mobhead.renderers.TileEntityItemStackSkullRenderer;
 import keletu.tinkertweaks.mobhead.tilenetities.IguanaSkullTileEntity;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-
-import javax.annotation.Nonnull;
 
 public class MobHeadClientProxy extends MobHeadCommonProxy {
     @Override

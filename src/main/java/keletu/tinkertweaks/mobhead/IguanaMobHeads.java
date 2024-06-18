@@ -3,7 +3,6 @@ package keletu.tinkertweaks.mobhead;
 import keletu.tinkertweaks.mobhead.blocks.IguanaSkullBlock;
 import keletu.tinkertweaks.mobhead.handlers.MobHeadHandler;
 import keletu.tinkertweaks.mobhead.items.IguanaSkull;
-import keletu.tinkertweaks.mobhead.items.Wearable;
 import keletu.tinkertweaks.mobhead.proxy.MobHeadCommonProxy;
 import keletu.tinkertweaks.mobhead.tilenetities.IguanaSkullTileEntity;
 import keletu.tinkertweaks.util.Log;
@@ -43,9 +42,8 @@ public class IguanaMobHeads {
         GameRegistry.registerTileEntity(IguanaSkullTileEntity.class, "skullTE");
 
         // psssssst!
-        wearables = new Wearable();
-        ForgeRegistries.ITEMS.register(wearables);
-        proxy.registerModels();
+        //wearables = new Wearable();
+        //ForgeRegistries.ITEMS.register(wearables);
         proxy.initialize();
     }
 

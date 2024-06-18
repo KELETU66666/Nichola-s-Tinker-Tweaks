@@ -90,11 +90,11 @@ public class MobHeadHandler {
             skullId = IguanaSkull.META_ENDERMAN;
 
             // sometimes, very very rarely, you'll only get the jaw :D
-            if(mob.world.rand.nextInt(1000) == 0)
-            {
-                skullItem = IguanaMobHeads.wearables;
-                skullId = 2;
-            }
+            //if(mob.world.rand.nextInt(1000) == 0)
+            //{
+            //    skullItem = IguanaMobHeads.wearables;
+            //    skullId = 2;
+            //}
         }
         else if (mob instanceof EntityBlaze) {
             skullItem = IguanaMobHeads.skullItem;

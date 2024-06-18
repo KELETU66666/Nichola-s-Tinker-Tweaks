@@ -51,6 +51,8 @@ item.iguana.tcon.clay_bucket_unfired.name=Unfired Clay Bucket
 item.iguana.tcon.clay_bucket.name=%s Clay Bucket
 item.iguana.tcon.clay_bucket.empty.name=Clay Bucket
 
+item.iguana.tcon.rubber_chicken.name=Your Tool
+
 message.apology=I am really sorry and will not do it again
 message.apologyaccepted=Apology accepted. Don't do it again
 
