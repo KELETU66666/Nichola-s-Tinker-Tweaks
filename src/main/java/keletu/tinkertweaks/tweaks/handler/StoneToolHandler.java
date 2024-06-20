@@ -111,6 +111,9 @@ public class StoneToolHandler {
             if(event.tile.tank.getFluid() != null) {
                 fluid = event.tile.tank.getFluid().getFluid();
             }
+            if(event.recipe == null)
+                return;
+
             ItemStack result = event.recipe.getResult(event.tile.getStackInSlot(0), fluid);
             if (TinkerUtil.getMaterialFromStack(result) != null && TinkerUtil.getMaterialFromStack(result).equals(TinkerRegistry.getMaterial(entries[0]))) {
                 if(result.getItem().getRegistryName().getPath().equals(entries[1])) {
