@@ -3,6 +3,8 @@ tooltip.xp=经验
 tooltip.level.boosted=已升级
 tooltip.level.miningxp=挖掘经验
 
+tooltip.level.mininglevel=挖掘等级
+
 mininglevel.stone=石头
 mininglevel.copper=铜
 mininglevel.iron=铁

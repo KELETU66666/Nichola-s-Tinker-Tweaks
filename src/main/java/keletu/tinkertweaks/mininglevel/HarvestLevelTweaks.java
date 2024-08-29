@@ -8,9 +8,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.lang.reflect.Field;
@@ -120,7 +123,7 @@ public final class HarvestLevelTweaks {
     {
         ItemStack tmp = new ItemStack(Items.STICK); // we need one as argument, it's never actually accessed...
         // search for all items that have pickaxe harvestability
-        for(Item o : Item.REGISTRY)
+        for(Item o : ForgeRegistries.ITEMS)
         {
             // cycle through all toolclasses. usually this'll either be pickaxe, shovel or axe. But mods could add items with multiple.
             for(String toolClass : o.getToolClasses(tmp)) {
@@ -169,16 +172,17 @@ public final class HarvestLevelTweaks {
         Class clazz = item.getClass();
         while(clazz != Object.class)
         {
-            if(clazz.getSimpleName().equals("ItemToolAdv"))
+            System.out.print(clazz.getSimpleName());
+            if(clazz == ItemTool.class)
             {
                 try {
-                    Field hlvlField = clazz.getDeclaredField("harvestLevel");
+                    Field hlvlField = ReflectionHelper.findField(ItemTool.class, "toolMaterial");
                     hlvlField.setAccessible(true);
-                    hlvlField.set(item, hlvl);
-                } catch (NoSuchFieldException e) {
-                    // errorrr
-                    Log.error("Couldn't find harvestlevel of " + item.getTranslationKey());
-                } catch (IllegalAccessException e) {
+                    Item.ToolMaterial toolMat = (Item.ToolMaterial) hlvlField.get(item);
+                    Field lolField = ReflectionHelper.findField(Item.ToolMaterial.class, "harvestLevel");
+                    lolField.setAccessible(true);
+                    lolField.set(toolMat, hlvl);
+                }  catch (IllegalAccessException e) {
                     Log.error("Couldn't change harvestlevel of " + item.getTranslationKey());
                 }
                 break;

@@ -1,5 +1,6 @@
 package keletu.tinkertweaks.mininglevel;
 
+import keletu.tinkertweaks.Tooltips;
 import keletu.tinkertweaks.config.Config;
 import keletu.tinkertweaks.tweaks.handler.VanillaHoeNerfHandler;
 import keletu.tinkertweaks.tweaks.handler.VanillaToolNerfHandler;
@@ -27,7 +28,7 @@ public class VanillaToolTipHandler {
         // we're only interested in stuff that's basically a pickaxe
         int hlvl = event.getItemStack().getItem().getHarvestLevel(event.getItemStack(), "pickaxe", null, null);
         if (hlvl >= 0)
-            event.getToolTip().add(1, "LevelingTooltips.getMiningLevelTooltip(hlvl)");
+            event.getToolTip().add(1, Tooltips.getMiningLevelTooltip(hlvl));
 
         // well.. let's check the other things too /o\
         /* disabled because it'll probably cause more confusion than help..

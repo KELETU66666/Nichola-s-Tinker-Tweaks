@@ -3,6 +3,8 @@ tooltip.xp=Skill XP
 tooltip.level.boosted=Boosted
 tooltip.level.miningxp=Mining XP
 
+tooltip.level.mininglevel=Mining Level
+
 mininglevel.stone=Stone
 mininglevel.copper=Copper
 mininglevel.iron=Iron
