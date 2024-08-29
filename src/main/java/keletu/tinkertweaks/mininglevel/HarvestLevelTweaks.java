@@ -23,7 +23,8 @@ import java.lang.reflect.Field;
  * Has to be used with the Tinker Tool Tweaks or you'll be very unhappy with unmineable blocks.
  */
 public final class HarvestLevelTweaks {
-    private HarvestLevelTweaks() {} // non-instantiable
+    private HarvestLevelTweaks() {
+    } // non-instantiable
 
     public static void modifyHarvestLevels() {
         Log.debug("Modifying HarvestLevel of blocks and items");
@@ -36,8 +37,7 @@ public final class HarvestLevelTweaks {
         Log.debug("Finished modifying HarvestLevel of blocks and items");
     }
 
-    private static void modifyVanillaBlocks()
-    {
+    private static void modifyVanillaBlocks() {
         // ensure that the forgehooks are in place
         new ForgeHooks(); // this ensures that the static initializer of ForgeHooks is called already. Otherwise it overwrites our Harvestlevel changes.
         // see ForgeHooks.initTools()
@@ -62,43 +62,40 @@ public final class HarvestLevelTweaks {
 
         Blocks.ENCHANTING_TABLE.setHarvestLevel("pickaxe", HarvestLevels._5_diamond);
 
-        if(Config.shouldProcessHarvestLevelLog())
+        if (Config.shouldProcessHarvestLevelLog())
             Log.debug("Modified vanilla blocks");
     }
 
-    private static void modifyOredictBlocks()
-    {
+    private static void modifyOredictBlocks() {
         //String[][][] lists = new String[][][] {oreDictLevels, oreDictLevelsMetallurgyFantasy, oreDictLevelsMetallurgyNether, oreDictLevelsMetallurgyEnd};
         //for(String[][] odll : lists)
-            for (int i = 0; i < allOreDicLevels.length; ++i)
-                for (String materialName : allOreDicLevels[i]) {
-                    modifyOredictBlock(materialName, i);
-                }
+        for (int i = 0; i < allOreDicLevels.length; ++i)
+            for (String materialName : allOreDicLevels[i]) {
+                modifyOredictBlock(materialName, i);
+            }
 
         // metal-blocks
-        if(Config.shouldProcessHarvestLevelLog())
+        if (Config.shouldProcessHarvestLevelLog())
             Log.debug("Modified oredicted blocks");
     }
 
-    public static void modifyOredictBlock(String orePostfix, int hlvl)
-    {
-        for(String prefix : oreDictPrefixes)
+    public static void modifyOredictBlock(String orePostfix, int hlvl) {
+        for (String prefix : oreDictPrefixes)
             for (ItemStack oreStack : OreDictionary.getOres(prefix + orePostfix))
                 modifyBlock(oreStack, hlvl);
     }
 
-    public static void modifyBlock(ItemStack stack, int harvestLevel)
-    {
+    public static void modifyBlock(ItemStack stack, int harvestLevel) {
         Block block = Block.getBlockFromItem(stack.getItem());
 
         int meta = stack.getItemDamage();
         Integer[] metas;
-        if(meta == OreDictionary.WILDCARD_VALUE)
-            metas = new Integer[] {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+        if (meta == OreDictionary.WILDCARD_VALUE)
+            metas = new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         else
-            metas = new Integer[] {meta};
+            metas = new Integer[]{meta};
 
-        for(int m : metas) {
+        for (int m : metas) {
             try {
                 if (Config.shouldProcessHarvestLevelLog()) {
                     Log.debug(String.format("Changed Harvest Level of %s from %d to %d", stack.getTranslationKey(), block.getHarvestLevel(block.getStateFromMeta(m)), harvestLevel));
@@ -108,25 +105,22 @@ public final class HarvestLevelTweaks {
                 //if (block instanceof GravelOre)
                 //    block.setHarvestLevel("shovel", harvestLevel, block.getStateFromMeta(m));
                 //else
-                    block.setHarvestLevel("pickaxe", harvestLevel, block.getStateFromMeta(m));
+                block.setHarvestLevel("pickaxe", harvestLevel, block.getStateFromMeta(m));
 
                 if (Config.shouldProcessOverrideChangesLog() && Loader.instance().isInState(LoaderState.POSTINITIALIZATION))
                     Log.info(String.format("Block Override: Changed Harvest Level of %s to %d", stack.getTranslationKey(), harvestLevel));
-            } catch(Exception e)
-            {
+            } catch (Exception e) {
                 // exception can occur if stuff does weird things metadatas
             }
         }
     }
 
-    private static void modifyTools()
-    {
+    private static void modifyTools() {
         ItemStack tmp = new ItemStack(Items.STICK); // we need one as argument, it's never actually accessed...
         // search for all items that have pickaxe harvestability
-        for(Item o : ForgeRegistries.ITEMS)
-        {
+        for (Item o : ForgeRegistries.ITEMS) {
             // cycle through all toolclasses. usually this'll either be pickaxe, shovel or axe. But mods could add items with multiple.
-            for(String toolClass : o.getToolClasses(tmp)) {
+            for (String toolClass : o.getToolClasses(tmp)) {
                 // adapt harvest levels
                 int old = o.getHarvestLevel(tmp, toolClass, null, null);
                 // wood/gold tool unchanged
@@ -135,20 +129,21 @@ public final class HarvestLevelTweaks {
 
                 int hlvl = getUpdatedHarvestLevel(old);
 
-                updateToolHarvestLevel(o, toolClass, hlvl);
+                o.setHarvestLevel(toolClass, hlvl);
+                break;
 
-                if (Config.shouldProcessMiningLevelLog())
-                    Log.debug(String.format("Changed Harvest Level for %s of %s from %d to %d", toolClass, o.getTranslationKey(), old, hlvl));
+                //if (Config.shouldProcessMiningLevelLog())
+                //    Log.debug(String.format("Changed Harvest Level for %s of %s from %d to %d", toolClass, o.getTranslationKey(), old, hlvl));
+//
             }
 
         }
 
-        if(Config.shouldProcessMiningLevelLog())
+        if (Config.shouldProcessMiningLevelLog())
             Log.debug("Modified tools");
     }
 
-    public static int getUpdatedHarvestLevel(int old)
-    {
+    public static int getUpdatedHarvestLevel(int old) {
         switch (old) {
             // stone tool: nerfed to wood level
             case 1:
@@ -165,35 +160,6 @@ public final class HarvestLevelTweaks {
         }
     }
 
-    public static void updateToolHarvestLevel(Item item, String toolClass, int hlvl)
-    {
-        item.setHarvestLevel(toolClass, hlvl);
-        // meh. special fix for CofH tools
-        Class clazz = item.getClass();
-        while(clazz != Object.class)
-        {
-            System.out.print(clazz.getSimpleName());
-            if(clazz == ItemTool.class)
-            {
-                try {
-                    Field hlvlField = ReflectionHelper.findField(ItemTool.class, "toolMaterial");
-                    hlvlField.setAccessible(true);
-                    Item.ToolMaterial toolMat = (Item.ToolMaterial) hlvlField.get(item);
-                    Field lolField = ReflectionHelper.findField(Item.ToolMaterial.class, "harvestLevel");
-                    lolField.setAccessible(true);
-                    lolField.set(toolMat, hlvl);
-                }  catch (IllegalAccessException e) {
-                    Log.error("Couldn't change harvestlevel of " + item.getTranslationKey());
-                }
-                break;
-            }
-            clazz = clazz.getSuperclass();
-        }
-
-        // check if the setting was successful
-        if(item.getHarvestLevel(new ItemStack(item), toolClass, null, null) != hlvl)
-            Log.error("Could not set harvestlevel of " + item.getTranslationKey() + ". Contact the Mod Author to properly support Item.setHarvestLevel().");
-    }
 
     // todo: expose this to config. But I'm too lazy for such a minor thing. Just call me to add another string...
     public static final String[] oreDictPrefixes = {
@@ -294,18 +260,18 @@ public final class HarvestLevelTweaks {
     };
 
     public static String[][] allOreDicLevels;
+
     static {
-        String[][][] lists = new String[][][] {oreDictLevels, oreDictLevelsMetallurgyFantasy, oreDictLevelsMetallurgyNether, oreDictLevelsMetallurgyEnd};
+        String[][][] lists = new String[][][]{oreDictLevels, oreDictLevelsMetallurgyFantasy, oreDictLevelsMetallurgyNether, oreDictLevelsMetallurgyEnd};
         allOreDicLevels = new String[oreDictLevels.length][];
-        for(int i = 0; i < 10; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             int size = 0;
             for (String[][] list : lists) size += list.length;
 
             allOreDicLevels[i] = new String[size];
             int j = 0;
             for (String[][] list : lists)
-                for(String entry : list[i])
+                for (String entry : list[i])
                     allOreDicLevels[i][j++] = entry;
         }
     }
