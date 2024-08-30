@@ -1,7 +1,7 @@
 package keletu.tinkertweaks.util;
 
-import net.minecraft.client.resources.I18n;
 import static net.minecraft.util.text.TextFormatting.*;
+import net.minecraft.util.text.translation.I18n;
 import slimeknights.tconstruct.library.materials.Material;
 
 import java.util.Map;
@@ -49,25 +49,25 @@ public final class HarvestLevels {
 
         if(vanilla)
         {
-            names.put(0 , GRAY + I18n.format("mininglevel.stone"));
-            names.put(1 , DARK_RED + I18n.format("mininglevel.iron"));
-            names.put(2 , RED + I18n.format("mininglevel.redstone"));
-            names.put(3 , LIGHT_PURPLE + I18n.format("mininglevel.obsidian"));
-            names.put(4 , BLUE + I18n.format("mininglevel.cobalt"));
-            names.put(5 , DARK_PURPLE + I18n.format("mininglevel.manyullyn"));
-            names.put(6 , DARK_PURPLE + I18n.format("mininglevel.manyullyn") + LIGHT_PURPLE + "+");
+            names.put(0 , GRAY + I18n.translateToLocal("mininglevel.stone"));
+            names.put(1 , DARK_RED + I18n.translateToLocal("mininglevel.iron"));
+            names.put(2 , RED + I18n.translateToLocal("mininglevel.redstone"));
+            names.put(3 , LIGHT_PURPLE + I18n.translateToLocal("mininglevel.obsidian"));
+            names.put(4 , BLUE + I18n.translateToLocal("mininglevel.cobalt"));
+            names.put(5 , DARK_PURPLE + I18n.translateToLocal("mininglevel.manyullyn"));
+            names.put(6 , DARK_PURPLE + I18n.translateToLocal("mininglevel.manyullyn") + LIGHT_PURPLE + "+");
         }
         else {
-            names.put(0, GRAY + I18n.format("mininglevel.stone"));
-            names.put(1, GOLD + I18n.format("mininglevel.copper"));
-            names.put(2, DARK_GRAY + I18n.format("mininglevel.iron"));
-            names.put(3, WHITE + I18n.format("mininglevel.tin"));
-            names.put(4, RED + I18n.format("mininglevel.redstone"));
-            names.put(5, LIGHT_PURPLE + I18n.format("mininglevel.obsidian"));
-            names.put(6, DARK_RED + I18n.format("mininglevel.ardite"));
-            names.put(7, DARK_AQUA + I18n.format("mininglevel.cobalt"));
-            names.put(8, DARK_PURPLE + I18n.format("mininglevel.manyullyn"));
-            names.put(9, DARK_PURPLE + I18n.format("mininglevel.manyullyn") + LIGHT_PURPLE + "+");
+            names.put(0, GRAY + I18n.translateToLocal("mininglevel.stone"));
+            names.put(1, GOLD + I18n.translateToLocal("mininglevel.copper"));
+            names.put(2, DARK_GRAY + I18n.translateToLocal("mininglevel.iron"));
+            names.put(3, WHITE + I18n.translateToLocal("mininglevel.tin"));
+            names.put(4, RED + I18n.translateToLocal("mininglevel.redstone"));
+            names.put(5, LIGHT_PURPLE + I18n.translateToLocal("mininglevel.obsidian"));
+            names.put(6, DARK_RED + I18n.translateToLocal("mininglevel.ardite"));
+            names.put(7, DARK_AQUA + I18n.translateToLocal("mininglevel.cobalt"));
+            names.put(8, DARK_PURPLE + I18n.translateToLocal("mininglevel.manyullyn"));
+            names.put(9, DARK_PURPLE + I18n.translateToLocal("mininglevel.manyullyn") + LIGHT_PURPLE + "+");
         }
     }
 

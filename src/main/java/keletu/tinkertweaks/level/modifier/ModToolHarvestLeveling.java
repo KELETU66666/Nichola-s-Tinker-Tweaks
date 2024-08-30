@@ -5,7 +5,7 @@ import keletu.tinkertweaks.config.Config;
 import keletu.tinkertweaks.level.ToolHarvestLevelNBT;
 import static keletu.tinkertweaks.util.HarvestLevels._0_stone;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -125,7 +125,7 @@ public class ModToolHarvestLeveling extends ModifierTrait {
             this.apply(tool);
             if (!player.world.isRemote) {
                 KeletuTinkerTweaks.proxy.playLevelupDing(player);
-                player.sendStatusMessage(new TextComponentTranslation(TextFormatting.GOLD + I18n.format("message.levelup.miningboost")), false);
+                player.sendStatusMessage(new TextComponentTranslation(TextFormatting.GOLD + I18n.translateToLocal("message.levelup.miningboost")), false);
             }
         }
     }

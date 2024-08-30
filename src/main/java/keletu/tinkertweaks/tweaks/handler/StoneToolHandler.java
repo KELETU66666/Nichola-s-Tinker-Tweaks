@@ -1,9 +1,9 @@
 package keletu.tinkertweaks.tweaks.handler;
 
 import keletu.tinkertweaks.config.Config;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -40,8 +40,8 @@ public class StoneToolHandler {
         // stone parts disabled?
         if (TinkerRegistry.getMaterial(part.getMaterialID(stack)) == stoneMaterial) {
             event.getToolTip().add(1, "");
-            event.getToolTip().add(2, TextFormatting.DARK_RED + I18n.format("tooltip.part.castonly1"));
-            event.getToolTip().add(3, TextFormatting.DARK_RED + I18n.format("tooltip.part.castonly2"));
+            event.getToolTip().add(2, TextFormatting.DARK_RED + I18n.translateToLocal("tooltip.part.castonly1"));
+            event.getToolTip().add(3, TextFormatting.DARK_RED + I18n.translateToLocal("tooltip.part.castonly2"));
             // we abuse the fact that the result is not used by anything to signal our other handlers to not add another tooltip
             event.setResult(Event.Result.DENY);
         }
@@ -64,7 +64,7 @@ public class StoneToolHandler {
 
             // don't allow stone tools
             if (TinkerUtil.getMaterialFromStack(event.getToolParts().get(i)) == stoneMaterial)
-                event.setCanceled(I18n.format("message.tool.disabled"));
+                event.setCanceled(I18n.translateToLocal("message.tool.disabled"));
         }
     }
 
@@ -85,7 +85,7 @@ public class StoneToolHandler {
 
             // don't allow stone tools
             if (TinkerUtil.getMaterialFromStack(event.getToolParts().get(i)) == stoneMaterial)
-                event.setCanceled(I18n.format("message.tool.disabled"));
+                event.setCanceled(I18n.translateToLocal("message.tool.disabled"));
         }
     }
 
@@ -98,7 +98,7 @@ public class StoneToolHandler {
                     event.setCanceled(false);
                     break;
                 }
-                event.setCanceled(I18n.format("message.toolpart.disallow"));
+                event.setCanceled(I18n.translateToLocal("message.toolpart.disallow"));
             }
         }
     }

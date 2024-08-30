@@ -2,7 +2,7 @@ package keletu.tinkertweaks.mobhead.items;
 
 import keletu.tinkertweaks.mobhead.IguanaMobHeads;
 import keletu.tinkertweaks.reference.Reference;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -37,7 +37,7 @@ public class Wearable extends Item {
     @Override
     public void addInformation(ItemStack item, World player, List<String> tooltips, ITooltipFlag advanced) {
         // specul tooltips
-        tooltips.add(TextFormatting.DARK_GRAY +  I18n.format("tooltip." + textureTypes[item.getItemDamage()]));
+        tooltips.add(TextFormatting.DARK_GRAY +  I18n.translateToLocal("tooltip." + textureTypes[item.getItemDamage()]));
     }
 
     @Override

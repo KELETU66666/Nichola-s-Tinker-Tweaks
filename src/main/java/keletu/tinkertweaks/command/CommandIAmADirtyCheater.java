@@ -1,7 +1,7 @@
 package keletu.tinkertweaks.command;
 
 import keletu.tinkertweaks.KeletuTinkerTweaks;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.NumberInvalidException;
@@ -49,7 +49,7 @@ public class CommandIAmADirtyCheater extends CommandBase {
             sender.sendMessage(new TextComponentTranslation(TextFormatting.ITALIC + "You don't look like a cheater to me"));
         } else {
             String cmd = getName();
-            String arg = I18n.format("message.apology");
+            String arg = I18n.translateToLocal("message.apology");
 
             StringBuilder sb = new StringBuilder();
             for (String s : args) {
@@ -58,7 +58,7 @@ public class CommandIAmADirtyCheater extends CommandBase {
             }
 
             if (arg.toLowerCase().trim().equals(sb.toString().toLowerCase().trim())) {
-                sender.sendMessage(new TextComponentTranslation(I18n.format("message.apologyaccepted")));
+                sender.sendMessage(new TextComponentTranslation(I18n.translateToLocal("message.apologyaccepted")));
                 convertTool(sender, getCurrentItem(sender));
             } else {
                 sender.sendMessage(

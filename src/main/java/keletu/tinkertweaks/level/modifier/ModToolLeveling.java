@@ -4,7 +4,7 @@ import keletu.tinkertweaks.KeletuTinkerTweaks;
 import keletu.tinkertweaks.config.Config;
 import keletu.tinkertweaks.level.ToolLevelNBT;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -241,7 +241,7 @@ public class ModToolLeveling extends ProjectileModifierTrait {
             if (cheat * 2 >= xpForLevelup) {
                 //you just got rubber chicken'd
                 if (player != null && !player.world.isRemote) {
-                    String text = I18n.format("message.levelup.chicken");
+                    String text = I18n.translateToLocal("message.levelup.chicken");
                     player.sendStatusMessage(new TextComponentTranslation(TextFormatting.DARK_RED + text), false);
                     KeletuTinkerTweaks.proxy.playLevelupChicken(player);
                     ItemStack chicken = new ItemStack(KeletuTinkerTweaks.rubberChicken);

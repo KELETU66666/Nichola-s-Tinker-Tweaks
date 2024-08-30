@@ -2,7 +2,7 @@ package keletu.tinkertweaks;
 
 import com.google.common.collect.Lists;
 import keletu.tinkertweaks.config.Config;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -61,8 +61,8 @@ public final class EventHandler {
     @SubscribeEvent
     public void onTooltip(ItemTooltipEvent event) {
         if(event.getItemStack().getItem() == KeletuTinkerTweaks.rubberChicken && event.getItemStack().hasTagCompound() && event.getItemStack().getTagCompound().hasKey("Original")) {
-            event.getToolTip().add(1, TextFormatting.DARK_RED.toString() + TextFormatting.ITALIC + I18n.format("tooltip.chicken1"));
-            event.getToolTip().add(2, TextFormatting.DARK_RED + I18n.format("tooltip.chicken2"));
+            event.getToolTip().add(1, TextFormatting.DARK_RED.toString() + TextFormatting.ITALIC + I18n.translateToLocal("tooltip.chicken1"));
+            event.getToolTip().add(2, TextFormatting.DARK_RED + I18n.translateToLocal("tooltip.chicken2"));
             return;
         }
         Tooltips.addTooltips(event.getItemStack(), event.getToolTip());

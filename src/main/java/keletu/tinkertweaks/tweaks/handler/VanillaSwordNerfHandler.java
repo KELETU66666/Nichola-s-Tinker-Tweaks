@@ -1,12 +1,12 @@
 package keletu.tinkertweaks.tweaks.handler;
 
 import keletu.tinkertweaks.KeletuTinkerTweaks;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -50,8 +50,8 @@ public class VanillaSwordNerfHandler {
             //    if(iter.next().startsWith(LevelingToolTipHandler.plusPrefix))
             //        iter.remove();
             //}
-            event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessWeapon1"));
-            event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessTool2"));
+            event.getToolTip().add(TextFormatting.DARK_RED + I18n.translateToLocal("tooltip.uselessWeapon1"));
+            event.getToolTip().add(TextFormatting.DARK_RED + I18n.translateToLocal("tooltip.uselessTool2"));
         }
     }
 

@@ -1,7 +1,7 @@
 package keletu.tinkertweaks.tweaks.handler;
 
 import keletu.tinkertweaks.KeletuTinkerTweaks;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.util.text.TextFormatting;
@@ -33,8 +33,8 @@ public class VanillaBowNerfHandler {
             return;
 
         if(isUselessBow(event.getItemStack().getItem())) {
-            event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessBow1"));
-            event.getToolTip().add(TextFormatting.DARK_RED + I18n.format("tooltip.uselessTool2"));
+            event.getToolTip().add(TextFormatting.DARK_RED + I18n.translateToLocal("tooltip.uselessBow1"));
+            event.getToolTip().add(TextFormatting.DARK_RED + I18n.translateToLocal("tooltip.uselessTool2"));
         }
     }
 
