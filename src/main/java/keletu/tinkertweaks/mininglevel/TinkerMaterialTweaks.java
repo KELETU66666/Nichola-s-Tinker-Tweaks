@@ -7,8 +7,6 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.*;
-import slimeknights.tconstruct.library.tools.IToolPart;
-import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.lang.reflect.Field;
@@ -57,7 +55,7 @@ public final class TinkerMaterialTweaks {
                 // new harvest level
                 int newHlvl = HarvestLevelTweaks.getUpdatedHarvestLevel(stats.harvestLevel);
 
-                updateMaterial(newHlvl, material.identifier, stats.durability, (int) stats.miningspeed, (int) stats.attack, statsHandle.durability);
+                updateMaterial(newHlvl, material.identifier, stats.durability, (int) stats.miningspeed * 100, (int) stats.attack, statsHandle.modifier);
 
             }
         }

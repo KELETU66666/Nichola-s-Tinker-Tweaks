@@ -79,7 +79,7 @@ modifier.blazehead.desc=MiningLevel +1
 modifier.blizzhead.desc=MiningLevel +1
 
 message.toolpart.disallow=You cannot make this part with this material.
-message.tool.disabled=This part is too crude to assemble a tool with it.
+message.tool.disabled=This part is too crude to assemble a tool.
 
 message.levelup.2=You begin to feel comfortable handling the %s
 message.levelup.3=You are now accustomed to the weight of the %s
